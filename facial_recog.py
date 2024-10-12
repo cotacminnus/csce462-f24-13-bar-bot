@@ -1,6 +1,6 @@
 import boto3
 
-
+# need to configure credentials
 
 def face_recog(img_path):    #the relative path to the image will be passed in
     #passes in image, returns a bool, see if any faces are recognized
