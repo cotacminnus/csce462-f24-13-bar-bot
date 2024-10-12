@@ -1,8 +1,19 @@
+import boto3
 
-def face_recog(img):
+
+
+def face_recog(img_path):    #the relative path to the image will be passed in
     #passes in image, returns a bool, see if any faces are recognized
-    return False
+    client = boto3.client('rekognition')
 
-def connect(token):
-    return False
-    # this will be online
+    with open(img_path, 'rb') as image:
+        response = client.detect_faces(
+        Image={'Bytes': image.read()},
+        Attributes=['DEFAULT']  # we don't need specific attributes as of now
+    )
+
+    if not response['FaceDetails']:
+        print("No faces matched.")
+        return False
+
+    return True
