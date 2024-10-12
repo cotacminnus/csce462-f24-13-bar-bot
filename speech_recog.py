@@ -1,29 +1,23 @@
 import os
 import speech_recognition as sr
 
-'''
-This picks up volume from microphone
-for phrase in LiveSpeech():
-    print(phrase)
-'''
+def listen():
 
-r = sr.Recognizer()
-with sr.Microphone() as source:
-    print("Listening...")
-    audio = r.listen(source)
+    r = sr.Recognizer()
+    with sr.Microphone() as source:
+        print("Listening...")
+        audio = r.listen(source)
 
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
-try:
-    print(f"Whisper API thinks you said {r.recognize_whisper_api(audio, api_key=OPENAI_API_KEY)}")
-except sr.RequestError as e:
-    print(f"Could not request results from Whisper API; {e}")
+    # this will use OpenAI's Whisper API
+    # We found that it is unrealistic to implement the speech recognition function locally on a Raspi
 
-'''
-def speech_to_text(speech, online):
-    # input an audio file, export a string
-    # option to use external api
+    OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+    text = ""
+
+    try:
+        print("Fetched results from Whisper API")
+        text = r.recognize_whisper_api(audio, api_key=OPENAI_API_KEY)
+    except sr.RequestError as e:
+        print(f"Could not request results from Whisper API; {e}")
+
     return text
-'''
-def connect(token):
-
-    return False
