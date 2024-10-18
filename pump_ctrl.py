@@ -29,3 +29,8 @@ def actuate_pump(pump, t):
         kit.motor4.throttle = 0.0
     else:
         raise ValueError(f"Invalid pump value: {pump}. Please choose a pump between 1 and 4.")
+    
+#   add functions as needed
+class PumpCtrl:
+    def control(self):
+        return None
