@@ -17,3 +17,22 @@ class Facial_Recognition:
             return False
 
         return True
+
+    def test(img_path):
+        client = boto3.client('rekognition')
+
+        with open(img_path, 'rb') as image:
+            response = client.detect_faces(
+            Image={'Bytes': image.read()},
+            Attributes=['DEFAULT']  # we don't need specific attributes as of now
+        )
+            
+        if not response['FaceDetails']:
+            print("No faces matched.")
+            return False
+        
+        print(response)
+
+        return True
+
+        
