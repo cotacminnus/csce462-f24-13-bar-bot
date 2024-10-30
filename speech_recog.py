@@ -3,7 +3,7 @@ import speech_recognition as sr
 import vosk
 import json
 
-model = vosk.Model("path_to_model")
+model = vosk.Model("./model/vosk-model-small-en-us-0.15/")
 recognizer = vosk.KaldiRecognizer(model, 16000)
 
 class Speech2Text:
