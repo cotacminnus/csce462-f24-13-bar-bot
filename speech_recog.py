@@ -1,5 +1,10 @@
 import os
 import speech_recognition as sr
+import vosk
+import json
+
+model = vosk.Model("path_to_model")
+recognizer = vosk.KaldiRecognizer(model, 16000)
 
 class Speech2Text:
     def listen():
