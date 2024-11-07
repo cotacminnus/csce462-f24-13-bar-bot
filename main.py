@@ -1,7 +1,7 @@
-import Text2Speech
-import Speech2Text
-import Facial_Recognition
-import Pumpctrl
+from tts import Text2Speech
+from speech_recog import Speech2Text
+from facial_recog import Facial_Recognition
+from pump_ctrl import Pumpctrl
 
 '''
 Logic of the main function:
@@ -15,6 +15,8 @@ def main():
 
     tts.init()
 
+    sentence = ''
+
     #Facial recognition will be polling
     while True:
         #while(noface):
@@ -22,15 +24,22 @@ def main():
             #if face detected, break
 
         #greet
+        tts.text_to_speech("Howdy!")
+        tts.stop
 
-        #while not asking for drink
+         #while not asking for drink
             #wait for user speech
                 #if getting user speech, respond
                 #if asking for drink, goto drink dispensing
                 #if face not recognized, go back to the beginning
 
+        while(not (sentence.find("pour") and sentence.find("drink"))):
+            #listen
+            # sentence = listen
+            sentence = ''
+
         #dispense drink
-        #go back to 26
+        #go back
 
         continue
         #complete the cycle
