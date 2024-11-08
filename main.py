@@ -24,7 +24,6 @@ def main():
 
         #greet
         tts.text_to_speech("Howdy!")
-        tts.stop()
 
          #while not asking for drink
             #wait for user speech
