@@ -23,25 +23,21 @@ class Speech2Text:
 
 
     def listen_until_keyword(self, keyword):
+        
+        with sd.RawInputStream(samplerate=self.sample_rate, blocksize=8000, dtype="int16",
+                       channels=1, callback=self.audio_callback):
+            print("Listening...")
 
-        try:
+            buf = ""
 
-            with sd.RawInputStream(samplerate=self.sample_rate, blocksize=8000, dtype="int16",
-                        channels=1, callback=self.audio_callback):
-                print("Listening...")
+            while buf.find(keyword) == -1:
+                # Get audio data from the queue
+                data = self.audio_queue.get()
 
-                buf = ""
+                # Pass data to the recognizer and print results
+                if self.recognizer.AcceptWaveform(data):
+                    result = json.loads(self.recognizer.Result())
+                    print("Recognized:", result["text"])
 
-                while buf.find(keyword) == -1:
-                    # Get audio data from the queue
-                    data = self.audio_queue.get()
-
-                    # Pass data to the recognizer and print results
-                    if self.recognizer.AcceptWaveform(data):
-                        result = json.loads(self.recognizer.Result())
-                        print("Recognized:", result["text"])
-
-                        buf = result["text"]
-                print("Hit!")
-        except:
-            print("Error listening, need retry...")
+                    buf = result["text"]
+            print("Hit!")

@@ -32,8 +32,10 @@ def main():
                 #if getting user speech, respond
                 #if asking for drink, goto drink dispensing
                 #if face not recognized, go back to the beginning
-
-        stt.listen_until_keyword("drink")
+        try:
+            stt.listen_until_keyword("drink")
+        except:
+            continue
         print("Run!")
         tts.text_to_speech("Pouring drink.")
 
