@@ -2,6 +2,7 @@ from tts import Text2Speech
 from speech_recog import Speech2Text
 # from facial_recog import Facial_Recognition
 from pump_ctrl import PumpCtrl
+import time
 
 '''
 Logic of the main function:
@@ -24,7 +25,7 @@ def main():
 
         #greet
         tts.text_to_speech("Howdy!")
-        tts.stop()
+
 
          #while not asking for drink
             #wait for user speech
@@ -34,12 +35,13 @@ def main():
 
         stt.listen_until_keyword("drink")
         print("Run!")
-        tts.text_to_speech("Pouring drink")
-        tts.stop()
+        tts.text_to_speech("Pouring drink.")
+
 
         #dispense drink
         #go back
         #complete the cycle
+        time.sleep(.5)
 
 if __name__ == "__main__":
     main()
