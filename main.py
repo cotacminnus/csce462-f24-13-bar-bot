@@ -1,7 +1,7 @@
 from tts import Text2Speech
 from speech_recog import Speech2Text
 # from facial_recog import Facial_Recognition
-from pump_ctrl import Pumpctrl
+from pump_ctrl import PumpCtrl
 
 '''
 Logic of the main function:
