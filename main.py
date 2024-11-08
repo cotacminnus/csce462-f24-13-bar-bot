@@ -14,7 +14,7 @@ def main():
     # facial = Facial_Recognition()
 
     tts.init()
-    stt.inti()
+    stt.init()
 
     #Facial recognition will be polling
     while True:
