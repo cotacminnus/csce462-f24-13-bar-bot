@@ -39,8 +39,6 @@ def main():
 
         #dispense drink
         #go back
-
-        continue
         #complete the cycle
 
 if __name__ == "__main__":
