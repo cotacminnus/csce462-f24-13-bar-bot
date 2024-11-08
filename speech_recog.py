@@ -29,7 +29,7 @@ class Speech2Text:
 
             buf = ""
 
-            while not buf.find(keyword):
+            while buf.find(keyword) == -1:
                 # Get audio data from the queue
                 data = self.audio_queue.get()
 
