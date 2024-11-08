@@ -14,7 +14,7 @@ def main():
     # facial = Facial_Recognition()
 
     tts.init()
-    stt.init()
+    stt.init("model/vosk-model-small-en-us-0.15")
 
     #Facial recognition will be polling
     while True:
