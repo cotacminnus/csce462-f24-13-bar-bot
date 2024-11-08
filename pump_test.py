@@ -6,7 +6,7 @@ from adafruit_motorkit import MotorKit
 
 kit = MotorKit(i2c=board.I2C())
 
-while True:
+for i in range(1):
     print("Running motor 1")
     kit.motor1.throttle = 1.0
     time.sleep(0.5)

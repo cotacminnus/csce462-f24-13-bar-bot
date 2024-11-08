@@ -43,7 +43,7 @@ def main():
         #dispense drink
         #go back
         #complete the cycle
-        time.sleep(.5)
+        time.sleep(.1)
 
 if __name__ == "__main__":
     main()
