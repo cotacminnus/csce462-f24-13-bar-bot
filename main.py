@@ -32,6 +32,7 @@ def main():
                 #if face not recognized, go back to the beginning
 
         stt.listen_until_keyword("drink")
+        print("Run!")
         tts.text_to_speech("Pouring drink")
         tts.stop()
 
