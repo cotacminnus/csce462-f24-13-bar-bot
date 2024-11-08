@@ -30,7 +30,7 @@ def actuate_pump(pump, t):
     else:
         raise ValueError(f"Invalid pump value: {pump}. Please choose a pump between 1 and 4.")
     
-def actuate_all_pump(t=6):  #default is 6sec
+def actuate_all_pump(t=5):  #default is 6sec
     kit.motor1.throttle = 1.0
     kit.motor2.throttle = 1.0
     kit.motor3.throttle = 1.0
