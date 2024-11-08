@@ -1,6 +1,6 @@
 from tts import Text2Speech
 from speech_recog import Speech2Text
-from facial_recog import Facial_Recognition
+# from facial_recog import Facial_Recognition
 from pump_ctrl import Pumpctrl
 
 '''
@@ -11,7 +11,7 @@ Logic of the main function:
 def main():
     tts = Text2Speech()
     stt = Speech2Text()
-    facial = Facial_Recognition()
+    # facial = Facial_Recognition()
 
     tts.init()
     stt.inti()
