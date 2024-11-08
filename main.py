@@ -14,8 +14,7 @@ def main():
     facial = Facial_Recognition()
 
     tts.init()
-
-    sentence = ''
+    stt.inti()
 
     #Facial recognition will be polling
     while True:
@@ -25,7 +24,7 @@ def main():
 
         #greet
         tts.text_to_speech("Howdy!")
-        tts.stop
+        tts.stop()
 
          #while not asking for drink
             #wait for user speech
@@ -33,10 +32,9 @@ def main():
                 #if asking for drink, goto drink dispensing
                 #if face not recognized, go back to the beginning
 
-        while(not (sentence.find("pour") and sentence.find("drink"))):
-            #listen
-            # sentence = listen
-            sentence = ''
+        stt.listen_until_keyword("drink")
+        tts.text_to_speech("Pouring drink")
+        tts.stop()
 
         #dispense drink
         #go back
