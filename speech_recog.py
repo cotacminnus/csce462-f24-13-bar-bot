@@ -1,29 +1,41 @@
-import os
-# import speech_recognition as sr
-import vosk
+import sounddevice as sd
+import queue
 import json
-
-model = vosk.Model("./model/vosk-model-small-en-us-0.15/")
-recognizer = vosk.KaldiRecognizer(model, 16000)
+from vosk import Model, KaldiRecognizer
 
 class Speech2Text:
-    def listen():
 
-        r = sr.Recognizer()
-        with sr.Microphone() as source:
+    model = None
+    sample_rate = 16000 #default
+    recognizer = None
+    audio_queue = None
+
+    def audio_callback(self, indata, frames, time, status):
+        if status:
+            print(status)
+        self.audio_queue.put(bytes(indata))
+
+    def init(self, model_path, srate=16000):
+        self.model = Model(model_path)
+        self.sample_rate = srate
+        self.audio_queue = queue.Queue()
+        self.recognizer = KaldiRecognizer(self.model, self.sample_rate)
+
+
+    def listen_until_keyword(self, keyword):
+        with sd.RawInputStream(samplerate=self.sample_rate, blocksize=8000, dtype="int16",
+                       channels=1, callback=self.audio_callback):
             print("Listening...")
-            audio = r.listen(source)
 
-        # this will use OpenAI's Whisper API
-        # We found that it is unrealistic to implement the speech recognition function locally on a Raspi
+            buf = ""
 
-        OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
-        text = ""
+            while not buf.find(keyword):
+                # Get audio data from the queue
+                data = self.audio_queue.get()
 
-        try:
-            print("Fetched results from Whisper API")
-            text = r.recognize_whisper_api(audio, api_key=OPENAI_API_KEY)
-        except sr.RequestError as e:
-            print(f"Could not request results from Whisper API; {e}")
+                # Pass data to the recognizer and print results
+                if self.recognizer.AcceptWaveform(data):
+                    result = json.loads(self.recognizer.Result())
+                    print("Recognized:", result["text"])
 
-        return text
+                    buf = result["text"]
