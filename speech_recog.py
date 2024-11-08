@@ -40,5 +40,5 @@ class Speech2Text:
 
                     buf = result["text"]
                 else:
-                    partial_result = json.loads(recognizer.PartialResult())
+                    partial_result = json.loads(self.recognizer.PartialResult())
                     print("Partial:", partial_result["partial"])
