@@ -37,9 +37,9 @@ def main():
         except:
             continue
         print("Run!")
-        tts.text_to_speech("Pouring drink.")
+        tts.text_to_speech("Pouring water.")
 
-        pump_ctrl.actuate_all_pump()
+        pump_ctrl.actuate_pump(1, 180) #pour roughly 6 ounces of water
         #dispense drink
         #go back
         #complete the cycle
