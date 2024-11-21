@@ -21,6 +21,13 @@ def write_storage(storage_levels):
         writer = csv.writer(file)
         writer.writerow(storage_levels)
 
+#Changes storage values during runtime
+def refill_storage(amt_1, amt_2, amt_3, amt_4):
+    with open(STORAGE_FILE, mode='w', newline='') as file:
+        writer = csv.writer(file)
+        writer.writerow(amt_1,amt_2,amt_3,amt_4)
+
+
 # Calculates how long pump should run to dispense x amount of liquid
 def convert_mL_to_sec(milliliters):
     return milliliters / 30.0
