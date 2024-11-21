@@ -3,6 +3,7 @@ from speech_recog import Speech2Text
 # from facial_recog import Facial_Recognition
 import pump_ctrl
 import time
+import recipe
 
 '''
 Logic of the main function:
@@ -16,6 +17,10 @@ def main():
 
     tts.init()
     stt.init("/home/asCSCE462/Desktop/csce462-f24-13-bar-bot/model/vosk-model-small-en-us-0.15")
+
+    #get menu
+    menu = recipe.get_drink_list()
+    storage = pump_ctrl.read_storage()
 
     #Facial recognition will be polling
     while True:
