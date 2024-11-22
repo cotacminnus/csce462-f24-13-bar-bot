@@ -44,8 +44,8 @@ class FacialRecognition:
 
             # Threshold for pixel intensity
             mean_intensity = np.mean(image_array)
-            high_intensity_region = image_array > mean_intensity * 1.2  # Brighter regions
-            low_intensity_region = image_array < mean_intensity * 0.8  # Darker regions
+            high_intensity_region = image_array > mean_intensity * 1.1  # Brighter regions
+            low_intensity_region = image_array < mean_intensity * 0.9  # Darker regions
 
             # Count bright and dark pixels
             bright_pixels = np.sum(high_intensity_region)
