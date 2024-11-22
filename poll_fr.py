@@ -1,92 +1,5 @@
 import subprocess
 import time
-import os
-from PIL import Image
-import numpy as np
-
-class FacialRecognition:
-    @staticmethod
-    def capture_image(save_path="captured_image.jpg"):
-        """
-        Captures an image using `fswebcam` and saves it to the specified path.
-        Returns the path to the captured image.
-        """
-        try:
-            print("Capturing image...")
-            subprocess.run(
-                ["fswebcam", "-d", "/dev/video10", "-r", "640x480", "--no-banner", save_path],
-                check=True
-            )
-            print(f"Image saved to {save_path}")
-            return save_path
-        except subprocess.CalledProcessError as e:
-            raise Exception(f"Error capturing image: {e}")
-
-    @staticmethod
-    def detect_face(image_path):
-        """
-        Detects a face-like structure in the image using basic intensity thresholds.
-        Returns True if a face-like structure is detected, False otherwise.
-        """
-        try:
-            # Open the image
-            image = Image.open(image_path).convert("L")
-            image_array = np.array(image)
-
-            # Define thresholds for face-like regions
-            mean_intensity = np.mean(image_array)
-            high_intensity_region = image_array > mean_intensity * 1.1
-            low_intensity_region = image_array < mean_intensity * 0.9
-
-            # Count bright and dark pixels
-            bright_pixels = np.sum(high_intensity_region)
-            dark_pixels = np.sum(low_intensity_region)
-
-            # Heuristic: Check if both regions exist
-            if bright_pixels > 500 and dark_pixels > 500:
-                print("Face-like structure detected!")
-                return True
-            else:
-                print("No face detected.")
-                return False
-        except Exception as e:
-            print(f"Error detecting face: {str(e)}")
-            return False
-
-    @staticmethod
-    def poll_webcam(interval=2, save_path="captured_image.jpg"):
-        """
-        Continuously polls the webcam for face detection.
-        """
-        try:
-            while True:
-                print("Polling for faces...")
-                # Capture an image
-                image_path = FacialRecognition.capture_image(save_path)
-                # Detect face directly from the image
-                if FacialRecognition.detect_face(image_path):
-                    print("Face detected!")
-                else:
-                    print("No face detected.")
-                # Wait before the next poll
-                time.sleep(interval)
-        except KeyboardInterrupt:
-            print("\nPolling stopped by user.")
-        finally:
-            # Cleanup
-            if os.path.exists(save_path):
-                os.remove(save_path)
-
-if __name__ == "__main__":
-    try:
-        FacialRecognition.poll_webcam()
-    except Exception as e:
-        print(f"An error occurred: {e}")
-
-'''
-
-import subprocess
-import time
 from PIL import Image, ImageOps
 import numpy as np
 import os
@@ -179,4 +92,4 @@ if __name__ == "__main__":
         FacialRecognition.poll_facial_recognition()
     except Exception as e:
         print(f"An error occurred: {e}")
-'''
+
