@@ -1,29 +1,25 @@
 import boto3
-import cv2
+from picamera import PiCamera
 import os
 
 class FacialRecognition:
     @staticmethod
     def capture_image(save_path="captured_image.jpg"):
         """
-        Captures an image from the webcam and saves it to the specified path.
+        Captures an image using the Raspberry Pi camera module and saves it to the specified path.
         Returns the path to the captured image.
         """
-        # Open the webcam
-        cam = cv2.VideoCapture(0)  # Use 0 for default webcam
-        if not cam.isOpened():
-            raise Exception("Could not open webcam.")
-        
-        print("Capturing image...")
-        ret, frame = cam.read()
-        if not ret:
-            raise Exception("Failed to capture image.")
-        
-        # Save the captured frame
-        cv2.imwrite(save_path, frame)
-        cam.release()
-        print(f"Image saved to {save_path}")
-        return save_path
+        try:
+            camera = PiCamera()
+            camera.start_preview()
+            print("Capturing image...")
+            camera.capture(save_path)
+            camera.stop_preview()
+            camera.close()
+            print(f"Image saved to {save_path}")
+            return save_path
+        except Exception as e:
+            raise Exception(f"Error capturing image: {str(e)}")
 
     @staticmethod
     def face_recog(image_path):
@@ -33,27 +29,30 @@ class FacialRecognition:
         """
         client = boto3.client('rekognition')
 
-        with open(image_path, 'rb') as image:
-            response = client.detect_faces(
-                Image={'Bytes': image.read()},
-                Attributes=['DEFAULT']
-            )
+        try:
+            with open(image_path, 'rb') as image:
+                response = client.detect_faces(
+                    Image={'Bytes': image.read()},
+                    Attributes=['DEFAULT']
+                )
 
-        if not response['FaceDetails']:
-            print("No faces detected.")
-            return False
+            if not response['FaceDetails']:
+                print("No faces detected.")
+                return False
 
-        print("Face detected!")
-        return True
+            print("Face detected!")
+            return True
+        except Exception as e:
+            raise Exception(f"Error during facial recognition: {str(e)}")
 
     @staticmethod
     def detect_face_with_webcam(save_path="captured_image.jpg"):
         """
-        Captures an image using the webcam and detects faces in it.
+        Captures an image using the Raspberry Pi camera module and detects faces in it.
         Returns a boolean indicating whether a face is detected.
         """
         try:
-            # Capture image from webcam
+            # Capture image from Raspberry Pi camera
             image_path = FacialRecognition.capture_image(save_path)
             # Detect faces in the captured image
             return FacialRecognition.face_recog(image_path)
@@ -62,6 +61,16 @@ class FacialRecognition:
             if os.path.exists(save_path):
                 os.remove(save_path)
 
+# Example usage
+if __name__ == "__main__":
+    try:
+        detected = FacialRecognition.detect_face_with_webcam()
+        if detected:
+            print("Face detected successfully!")
+        else:
+            print("No face detected.")
+    except Exception as e:
+        print(f"An error occurred: {e}")
 
 
 '''
