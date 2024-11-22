@@ -52,4 +52,30 @@ def test_detect_face():
 
     try:
         # Preprocess the image
-  
+        processed_image = FacialRecognition.preprocess_image(sample_image_path)
+        # Detect a face-like structure
+        result = FacialRecognition.detect_face(processed_image)
+        assert isinstance(result, bool), "detect_face did not return a boolean value."
+        print(f"test_detect_face passed! Face detected: {result}")
+    except Exception as e:
+        print(f"test_detect_face failed: {e}")
+
+def test_detect_face_with_webcam():
+    """
+    Test the detect_face_with_webcam method end-to-end.
+    """
+    try:
+        # Detect a face directly using the webcam
+        result = FacialRecognition.detect_face_with_webcam()
+        assert isinstance(result, bool), "detect_face_with_webcam did not return a boolean value."
+        print(f"test_detect_face_with_webcam passed! Face detected: {result}")
+    except Exception as e:
+        print(f"test_detect_face_with_webcam failed: {e}")
+
+if __name__ == "__main__":
+    print("Running tests...")
+    test_capture_image()
+    test_preprocess_image()
+    test_detect_face()
+    test_detect_face_with_webcam()
+
