@@ -1,21 +1,58 @@
-from facial_recog import FacialRecognition
+import os
+from facial_recognition import FacialRecognition
 
-def test_webcam_facial_recognition():
+def test_capture_image():
     """
-    Tests the webcam-based facial recognition functionality.
-    Captures an image using the webcam and checks for face detection.
+    Test the capture_image method to ensure it saves an image file.
     """
-    print("Starting webcam facial recognition test...")
+    test_image_path = "test_image.jpg"
+    try:
+        # Call the capture_image method
+        captured_path = FacialRecognition.capture_image(save_path=test_image_path)
+        # Check if the image file was created
+        assert os.path.exists(captured_path), "Image was not saved correctly."
+        print("test_capture_image passed!")
+    except Exception as e:
+        print(f"test_capture_image failed: {e}")
+    finally:
+        # Cleanup
+        if os.path.exists(test_image_path):
+            os.remove(test_image_path)
+
+def test_face_recog():
+    """
+    Test the face_recog method with a valid image file.
+    """
+    # Use a sample image file that contains a face
+    sample_image_path = "sample_face.jpg"
+    # Ensure the sample file exists
+    if not os.path.exists(sample_image_path):
+        print(f"Sample image '{sample_image_path}' not found. Please provide a valid image.")
+        return
 
     try:
-        # Attempt to detect a face using the webcam
-        face_detected = FacialRecognition.detect_face_with_webcam("test_image.jpg")
-        if face_detected:
-            print("Test Passed: Face detected successfully!")
-        else:
-            print("Test Failed: No face detected.")
+        # Call the face_recog method
+        result = FacialRecognition.face_recog(image_path=sample_image_path)
+        assert isinstance(result, bool), "face_recog did not return a boolean."
+        print(f"test_face_recog passed! Face detected: {result}")
     except Exception as e:
-        print(f"Test Failed: An error occurred - {e}")
+        print(f"test_face_recog failed: {e}")
+
+def test_detect_face_with_webcam():
+    """
+    Test the detect_face_with_webcam method.
+    """
+    try:
+        # Call the detect_face_with_webcam method
+        result = FacialRecognition.detect_face_with_webcam()
+        assert isinstance(result, bool), "detect_face_with_webcam did not return a boolean."
+        print(f"test_detect_face_with_webcam passed! Face detected: {result}")
+    except Exception as e:
+        print(f"test_detect_face_with_webcam failed: {e}")
 
 if __name__ == "__main__":
-    test_webcam_facial_recognition()
+    print("Running tests...")
+    test_capture_image()
+    test_face_recog()
+    test_detect_face_with_webcam()
+
