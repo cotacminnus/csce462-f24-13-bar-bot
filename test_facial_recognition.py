@@ -1,5 +1,5 @@
 import os
-from facial_recognition import FacialRecognition
+from facial_recog import FacialRecognition
 
 def test_capture_image():
     """
