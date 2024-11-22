@@ -14,7 +14,7 @@ class FacialRecognition:
         try:
             print("Capturing image...")
             subprocess.run(
-                ["fswebcam", "-r", "640x480", "--no-banner", save_path],
+                ["fswebcam", "-d", "/dev/video10", "-r", "640x480", "--no-banner", save_path],
                 check=True
             )
             print(f"Image saved to {save_path}")
