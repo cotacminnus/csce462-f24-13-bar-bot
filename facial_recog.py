@@ -1,5 +1,6 @@
-import boto3
+import cv2
 from picamera import PiCamera
+from picamera.array import PiRGBArray
 import os
 
 class FacialRecognition:
@@ -11,42 +12,50 @@ class FacialRecognition:
         """
         try:
             camera = PiCamera()
-            camera.start_preview()
+            raw_capture = PiRGBArray(camera)
             print("Capturing image...")
-            camera.capture(save_path)
-            camera.stop_preview()
+            camera.capture(raw_capture, format="bgr")
             camera.close()
+
+            # Save the captured image
+            image = raw_capture.array
+            cv2.imwrite(save_path, image)
             print(f"Image saved to {save_path}")
             return save_path
         except Exception as e:
             raise Exception(f"Error capturing image: {str(e)}")
 
     @staticmethod
-    def face_recog(image_path):
+    def face_recog(image_path, cascade_path="haarcascade_frontalface_default.xml"):
         """
-        Detects faces in the image using AWS Rekognition.
+        Detects faces in the image using OpenCV's Haar cascade.
         Returns a boolean indicating whether a face is detected.
         """
-        client = boto3.client('rekognition')
-
         try:
-            with open(image_path, 'rb') as image:
-                response = client.detect_faces(
-                    Image={'Bytes': image.read()},
-                    Attributes=['DEFAULT']
-                )
+            # Load the Haar cascade for face detection
+            if not os.path.exists(cascade_path):
+                raise FileNotFoundError("Haar cascade file not found. Please download it from OpenCV's GitHub.")
 
-            if not response['FaceDetails']:
+            face_cascade = cv2.CascadeClassifier(cascade_path)
+
+            # Load the image
+            image = cv2.imread(image_path)
+            gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+
+            # Detect faces
+            faces = face_cascade.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=5, minSize=(30, 30))
+
+            if len(faces) == 0:
                 print("No faces detected.")
                 return False
 
-            print("Face detected!")
+            print(f"Detected {len(faces)} face(s).")
             return True
         except Exception as e:
             raise Exception(f"Error during facial recognition: {str(e)}")
 
     @staticmethod
-    def detect_face_with_webcam(save_path="captured_image.jpg"):
+    def detect_face_with_webcam(save_path="captured_image.jpg", cascade_path="haarcascade_frontalface_default.xml"):
         """
         Captures an image using the Raspberry Pi camera module and detects faces in it.
         Returns a boolean indicating whether a face is detected.
@@ -55,13 +64,12 @@ class FacialRecognition:
             # Capture image from Raspberry Pi camera
             image_path = FacialRecognition.capture_image(save_path)
             # Detect faces in the captured image
-            return FacialRecognition.face_recog(image_path)
+            return FacialRecognition.face_recog(image_path, cascade_path)
         finally:
             # Clean up by removing the saved image
             if os.path.exists(save_path):
                 os.remove(save_path)
 
-# Example usage
 if __name__ == "__main__":
     try:
         detected = FacialRecognition.detect_face_with_webcam()
