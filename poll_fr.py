@@ -1,8 +1,8 @@
 import subprocess
 import time
 import os
-from PIL import Image, ImageOps, ImageDraw
 import numpy as np
+from PIL import Image, ImageOps
 
 class FacialRecognition:
     @staticmethod
@@ -33,7 +33,8 @@ class FacialRecognition:
     @staticmethod
     def sobel_edge_detection(image_path):
         """
-        Applies Sobel edge detection to the image and returns the processed image as a NumPy array.
+        Applies Sobel edge detection to the image using NumPy slicing for faster convolution.
+        Returns the processed image as a NumPy array.
         """
         try:
             # Open the image and convert to grayscale
@@ -50,9 +51,9 @@ class FacialRecognition:
                                 [0,  0,  0],
                                 [1,  2,  1]])
 
-            # Perform convolution to calculate gradients
-            gx = FacialRecognition.convolve2d(image_array, sobel_x)
-            gy = FacialRecognition.convolve2d(image_array, sobel_y)
+            # Perform 2D convolution manually
+            gx = FacialRecognition.apply_kernel(image_array, sobel_x)
+            gy = FacialRecognition.apply_kernel(image_array, sobel_y)
 
             # Compute the gradient magnitude
             gradient_magnitude = np.sqrt(gx**2 + gy**2)
@@ -63,26 +64,22 @@ class FacialRecognition:
             raise Exception(f"Error during Sobel edge detection: {str(e)}")
 
     @staticmethod
-    def convolve2d(image, kernel):
+    def apply_kernel(image, kernel):
         """
-        Performs 2D convolution between an image and a kernel.
+        Efficiently applies a kernel to a 2D image using NumPy slicing.
         """
         kernel_height, kernel_width = kernel.shape
-        image_height, image_width = image.shape
+        pad_h, pad_w = kernel_height // 2, kernel_width // 2
 
-        # Calculate padding
-        pad_h = kernel_height // 2
-        pad_w = kernel_width // 2
+        # Pad the image with zeros to handle edges
+        padded_image = np.pad(image, ((pad_h, pad_h), (pad_w, pad_w)), mode='constant')
 
-        # Pad the image with zeros
-        padded_image = np.pad(image, ((pad_h, pad_h), (pad_w, pad_w)), mode='constant', constant_values=0)
-
-        # Initialize the output array
+        # Output array
         output = np.zeros_like(image)
 
-        # Perform the convolution
-        for y in range(image_height):
-            for x in range(image_width):
+        # Convolution using slicing
+        for y in range(output.shape[0]):
+            for x in range(output.shape[1]):
                 region = padded_image[y:y + kernel_height, x:x + kernel_width]
                 output[y, x] = np.sum(region * kernel)
 
@@ -150,6 +147,7 @@ if __name__ == "__main__":
         FacialRecognition.poll_webcam(save_path="output/captured_image.jpg")
     except Exception as e:
         print(f"An error occurred: {e}")
+
 
 '''
 import subprocess
