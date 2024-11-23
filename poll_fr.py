@@ -31,59 +31,25 @@ class FacialRecognition:
             raise Exception(f"Error capturing image: {e}")
 
     @staticmethod
-    def sobel_edge_detection(image_path):
+    def threshold_edge_detection(image_path):
         """
-        Applies Sobel edge detection to the image using NumPy slicing for faster convolution.
-        Returns the processed image as a NumPy array.
+        Performs binary thresholding for edge detection.
+        Converts the image to grayscale, applies a threshold, and creates a binary image.
+        Returns the binary edge image as a NumPy array.
         """
         try:
             # Open the image and convert to grayscale
             image = Image.open(image_path).convert("L")
-            image = ImageOps.autocontrast(image)  # Enhance contrast for better edge detection
+            image = ImageOps.autocontrast(image)  # Enhance contrast for better thresholding
             image_array = np.array(image)
 
-            # Sobel kernels
-            sobel_x = np.array([[-1, 0, 1],
-                                [-2, 0, 2],
-                                [-1, 0, 1]])
+            # Apply binary threshold
+            threshold = 128  # Adjust as needed based on lighting conditions
+            binary_edges = (image_array > threshold).astype(np.uint8) * 255  # Binary mask (0 or 255)
 
-            sobel_y = np.array([[-1, -2, -1],
-                                [0,  0,  0],
-                                [1,  2,  1]])
-
-            # Perform 2D convolution manually
-            gx = FacialRecognition.apply_kernel(image_array, sobel_x)
-            gy = FacialRecognition.apply_kernel(image_array, sobel_y)
-
-            # Compute the gradient magnitude
-            gradient_magnitude = np.sqrt(gx**2 + gy**2)
-            gradient_magnitude = (gradient_magnitude / gradient_magnitude.max()) * 255  # Normalize to 0-255
-
-            return gradient_magnitude.astype(np.uint8)  # Return as unsigned 8-bit integer
+            return binary_edges
         except Exception as e:
-            raise Exception(f"Error during Sobel edge detection: {str(e)}")
-
-    @staticmethod
-    def apply_kernel(image, kernel):
-        """
-        Efficiently applies a kernel to a 2D image using NumPy slicing.
-        """
-        kernel_height, kernel_width = kernel.shape
-        pad_h, pad_w = kernel_height // 2, kernel_width // 2
-
-        # Pad the image with zeros to handle edges
-        padded_image = np.pad(image, ((pad_h, pad_h), (pad_w, pad_w)), mode='constant')
-
-        # Output array
-        output = np.zeros_like(image)
-
-        # Convolution using slicing
-        for y in range(output.shape[0]):
-            for x in range(output.shape[1]):
-                region = padded_image[y:y + kernel_height, x:x + kernel_width]
-                output[y, x] = np.sum(region * kernel)
-
-        return output
+            raise Exception(f"Error during threshold edge detection: {str(e)}")
 
     @staticmethod
     def detect_face(image_path):
@@ -92,8 +58,8 @@ class FacialRecognition:
         Returns True if a face-like structure is detected, False otherwise.
         """
         try:
-            # Apply Sobel edge detection
-            edge_array = FacialRecognition.sobel_edge_detection(image_path)
+            # Apply binary threshold edge detection
+            edge_array = FacialRecognition.threshold_edge_detection(image_path)
 
             # Analyze geometry: Detect circular or oval shapes
             # Define a bounding box in the center of the image
@@ -102,13 +68,13 @@ class FacialRecognition:
             box_size = min(width, height) // 4
             roi = edge_array[center_y - box_size:center_y + box_size, center_x - box_size:center_x + box_size]
 
-            # Count edge intensity within the ROI
-            edge_intensity = np.sum(roi > 128)  # Count pixels with high edge intensity
+            # Count white pixels in the ROI
+            edge_intensity = np.sum(roi == 255)  # Count pixels with high intensity (binary edges)
 
             print(f"Edge intensity in ROI: {edge_intensity}")
 
             # Thresholds for detection
-            if edge_intensity > 500:  # Adjust threshold based on testing
+            if edge_intensity > 1000:  # Adjust threshold based on testing
                 print("Face-like structure detected!")
                 return True
             else:
@@ -147,7 +113,6 @@ if __name__ == "__main__":
         FacialRecognition.poll_webcam(save_path="output/captured_image.jpg")
     except Exception as e:
         print(f"An error occurred: {e}")
-
 
 '''
 import subprocess
