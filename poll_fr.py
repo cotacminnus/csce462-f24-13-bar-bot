@@ -1,6 +1,6 @@
 import subprocess
-import time
 import os
+import time
 from PIL import Image, ImageFilter, ImageOps
 import numpy as np
 
@@ -8,7 +8,7 @@ class FacialRecognition:
     @staticmethod
     def capture_image(save_path="captured_image.jpg"):
         """
-        Captures an image using `libcamera-still` and saves it to the specified path.
+        Captures an image using `fswebcam` and saves it to the specified path.
         Returns the path to the captured image.
         """
         try:
@@ -18,9 +18,9 @@ class FacialRecognition:
             if save_dir and not os.path.exists(save_dir):
                 os.makedirs(save_dir)
 
-            # Use libcamera-still to capture the image
+            # Use fswebcam to capture the image
             subprocess.run(
-                ["libcamera-still", "-o", save_path, "--width", "640", "--height", "480", "--nopreview"],
+                ["fswebcam", "-r", "640x480", "--no-banner", save_path],
                 check=True
             )
             if os.path.exists(save_path):
@@ -110,7 +110,6 @@ if __name__ == "__main__":
         FacialRecognition.poll_webcam(save_path="output/captured_image.jpg")
     except Exception as e:
         print(f"An error occurred: {e}")
-
 
 '''
 import subprocess
