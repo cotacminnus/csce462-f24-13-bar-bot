@@ -19,7 +19,7 @@ class FacialRecognition:
 
             # Use fswebcam to capture the image
             subprocess.run(
-                ["fswebcam", "-d", "/dev/video0", "-r", "320x240", "--no-banner", save_path],
+                ["fswebcam", "-d", "/dev/video0", "-r", "--no-banner", save_path],
                 check=True
             )
             if os.path.exists(save_path):
