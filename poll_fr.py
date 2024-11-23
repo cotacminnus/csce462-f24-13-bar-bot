@@ -1,7 +1,7 @@
 import subprocess
-import os
 import time
-from PIL import Image, ImageFilter, ImageOps
+import os
+from PIL import Image, ImageFilter, ImageOps, ImageDraw
 import numpy as np
 
 class FacialRecognition:
@@ -13,7 +13,6 @@ class FacialRecognition:
         """
         try:
             print("Capturing image...")
-            # Ensure the directory exists
             save_dir = os.path.dirname(save_path)
             if save_dir and not os.path.exists(save_dir):
                 os.makedirs(save_dir)
@@ -110,6 +109,7 @@ if __name__ == "__main__":
         FacialRecognition.poll_webcam(save_path="output/captured_image.jpg")
     except Exception as e:
         print(f"An error occurred: {e}")
+
 
 '''
 import subprocess
