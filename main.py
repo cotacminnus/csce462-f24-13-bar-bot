@@ -30,7 +30,7 @@ def main():
             time.sleep(1)  # Wait 1 second between polling attempts
 
         # Greet the customer
-        tts.text_to_speech("Howdy! Welcome to the bar bot!")
+        tts.text_to_speech("Howdy! I am the bar bot! What can I get for you to drink?")
         print("Face detected. Greeted the customer.")
 
 
@@ -40,7 +40,7 @@ def main():
                 #if asking for drink, goto drink dispensing
                 #if face not recognized, go back to the beginning
         try:
-            stt.listen_until_keyword("drink")
+            stt.listen_until_keyword("water")
         except:
             continue
         print("Run!")
