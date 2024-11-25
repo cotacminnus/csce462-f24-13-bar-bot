@@ -50,7 +50,7 @@ def main():
 
         time.sleep(1)
 
-        pump_ctrl.actuate_pump(4, 60) #pour roughly 6 ounces of water
+        #pump_ctrl.actuate_pump(4, 60) #pour roughly 6 ounces of water
         #dispense drink
         #go back
         #complete the cycle
