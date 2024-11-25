@@ -84,8 +84,8 @@ import time
 import recipe
 
 '''
-Logic of the main function:
-    standby until a face is recognized  ->  Greet   <->  answer questions ->  if requested, pour drink
+#Logic of the main function:
+ #   standby until a face is recognized  ->  Greet   <->  answer questions ->  if requested, pour drink
 '''
 
 def main():
