@@ -46,7 +46,7 @@ def main():
         print("Run!")
         tts.text_to_speech("Pouring water.")
 
-        #pump_ctrl.actuate_pump(4, 180) #pour roughly 6 ounces of water
+        #pump_ctrl.actuate_pump(4, 30) #pour roughly 6 ounces of water
         #dispense drink
         #go back
         #complete the cycle
