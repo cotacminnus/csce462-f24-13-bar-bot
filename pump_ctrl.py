@@ -35,19 +35,19 @@ def convert_mL_to_sec(milliliters):
 # Dispenses liquid from the selected pump for the given amount
 def actuate_pump(pump, amount):
     # Read current storage levels
-    storage_levels = read_storage()
+    #storage_levels = read_storage()
     
     # Validate the pump number
-    if pump < 1 or pump > 4:
-        raise ValueError(f"Invalid pump value: {pump}. Please choose a pump between 1 and 4.")
+    #if pump < 1 or pump > 4:
+        #raise ValueError(f"Invalid pump value: {pump}. Please choose a pump between 1 and 4.")
     
     # Check if there is enough liquid in the selected pump
-    if storage_levels[pump - 1] < amount:
-        raise ValueError(f"Not enough liquid in Pump {pump}. Available: {storage_levels[pump - 1]} mL, Requested: {amount} mL")
+    #if storage_levels[pump - 1] < amount:
+       # raise ValueError(f"Not enough liquid in Pump {pump}. Available: {storage_levels[pump - 1]} mL, Requested: {amount} mL")
     
     # Update the storage levels
-    storage_levels[pump - 1] -= amount
-    write_storage(storage_levels)
+    #storage_levels[pump - 1] -= amount
+    #write_storage(storage_levels)
     
     # Actuate the pump
     t = convert_mL_to_sec(amount)
