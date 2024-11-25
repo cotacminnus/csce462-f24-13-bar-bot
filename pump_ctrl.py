@@ -30,7 +30,7 @@ def refill_storage(amt_1, amt_2, amt_3, amt_4):
 
 # Calculates how long pump should run to dispense x amount of liquid
 def convert_mL_to_sec(milliliters):
-    return milliliters / 30.0
+    return (milliliters / 30.0) - .1
 
 # Dispenses liquid from the selected pump for the given amount
 def actuate_pump(pump, amount):
