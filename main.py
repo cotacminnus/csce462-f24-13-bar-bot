@@ -55,7 +55,7 @@ def main():
 
                     if drink_choice in available_drinks:
                         tts.text_to_speech(f"Great choice! Pouring {drink_choice} now.")
-                        pump_ctrl.actuate_pump(menu[drink_choice], 180)  # Adjust pump logic as needed
+                        #pump_ctrl.actuate_pump(menu[drink_choice], 180)  # Adjust pump logic as needed
                         storage[drink_choice] -= menu[drink_choice]  # Update storage
                         tts.text_to_speech("Your drink is ready. Enjoy!")
                         break
