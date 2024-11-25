@@ -13,7 +13,7 @@ Logic of the main function:
 def main():
     tts = Text2Speech()
     stt = Speech2Text()
-    facial = Facial_Recognition()
+    facial = FacialRecognition()
 
     tts.init()
     stt.init("/home/asCSCE462/Desktop/csce462-f24-13-bar-bot/model/vosk-model-small-en-us-0.15")
