@@ -1,6 +1,6 @@
 from tts import Text2Speech
 from speech_recog import Speech2Text
-# from facial_recog import Facial_Recognition
+from facial_recog import FacialRecognition
 import pump_ctrl
 import time
 import recipe
@@ -44,7 +44,7 @@ def main():
         print("Run!")
         tts.text_to_speech("Pouring water.")
 
-        pump_ctrl.actuate_pump(1, 180) #pour roughly 6 ounces of water
+        pump_ctrl.actuate_pump(4, 180) #pour roughly 6 ounces of water
         #dispense drink
         #go back
         #complete the cycle
