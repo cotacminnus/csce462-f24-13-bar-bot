@@ -44,9 +44,11 @@ def main():
         except:
             continue
         print("Run!")
-        tts.text_to_speech("Pouring water.")
+        tts.text_to_speech("Pouring water. Make sure cup is under nosel")
 
-        #pump_ctrl.actuate_pump(4, 30) #pour roughly 6 ounces of water
+        time.sleep(1)
+
+        pump_ctrl.actuate_pump(4, 60) #pour roughly 6 ounces of water
         #dispense drink
         #go back
         #complete the cycle
