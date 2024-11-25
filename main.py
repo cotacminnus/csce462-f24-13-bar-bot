@@ -7,7 +7,7 @@ import recipe
 
 '''
 Logic of the main function:
-    Standby until a face is recognized -> Greet -> Answer questions -> If requested, pour drink
+    Standby until a face is recognized -> Greet -> Take drink order -> Pour drink
 '''
 
 def main():
@@ -30,49 +30,40 @@ def main():
         while not facial.poll_webcam(interval=1, save_path="output/captured_image.jpg"):
             time.sleep(1)  # Wait 1 second between polling attempts
 
-        # Greet the customer
+        # Greet the customer and list available drinks
         tts.text_to_speech("Howdy! Welcome to the bar bot!")
         print("Face detected. Greeted the customer.")
+        #tts.text_to_speech("What drink would you like?")
 
-        # Interact with the customer
-        while True:
-            try:
-                tts.text_to_speech("What can I do for you?")
-                user_input = stt.listen_until_keyword("drink")  # Listen for a drink request
-                print(f"User said: {user_input}")
+        # List available drinks
+        available_drinks = [drink for drink in menu if menu[drink] <= storage.get(drink, 0)]
+        if not available_drinks:
+            tts.text_to_speech("I'm sorry, we're out of stock for all drinks.")
+            continue
 
-                if "drink" in user_input.lower():
-                    tts.text_to_speech("Sure! What drink would you like?")
-                    
-                    # List available drinks
-                    available_drinks = [drink for drink in menu if menu[drink] <= storage.get(drink, 0)]
-                    if not available_drinks:
-                        tts.text_to_speech("I'm sorry, we're out of stock for all drinks.")
-                        break
+        tts.text_to_speech("Available drinks are: " + ", ".join(available_drinks))
 
-                    tts.text_to_speech("Available drinks are: " + ", ".join(available_drinks))
-                    drink_choice = stt.listen_until_keyword(available_drinks)
+        # Listen for drink choice
+        try:
+            drink_choice = stt.listen_until_keyword(available_drinks)
+            if drink_choice in available_drinks:
+                tts.text_to_speech(f"Great choice! Pouring {drink_choice} now.")
+                #pump_ctrl.actuate_pump(menu[drink_choice], 180)  # Adjust pump logic as needed
+                storage[drink_choice] -= menu[drink_choice]  # Update storage
+                tts.text_to_speech("Your drink is ready. Enjoy!")
+            else:
+                tts.text_to_speech("I didn't catch that. Please choose a drink from the menu.")
+        except Exception as e:
+            print(f"Error during interaction: {e}")
+            tts.text_to_speech("Sorry, something went wrong. Please try again.")
 
-                    if drink_choice in available_drinks:
-                        tts.text_to_speech(f"Great choice! Pouring {drink_choice} now.")
-                        #pump_ctrl.actuate_pump(menu[drink_choice], 180)  # Adjust pump logic as needed
-                        storage[drink_choice] -= menu[drink_choice]  # Update storage
-                        tts.text_to_speech("Your drink is ready. Enjoy!")
-                        break
-                    else:
-                        tts.text_to_speech("I didn't catch that. Could you repeat the drink name?")
-                else:
-                    tts.text_to_speech("Let me know if you need a drink!")
-            except Exception as e:
-                print(f"Error during interaction: {e}")
-                continue
-
-        # Reset and wait for the next customer
+        # Reset for the next customer
         print("Interaction complete. Resetting...")
         time.sleep(2)
 
 if __name__ == "__main__":
     main()
+
 
 
 '''
