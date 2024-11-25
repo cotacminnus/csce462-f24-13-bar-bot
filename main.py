@@ -16,7 +16,7 @@ def main():
 
     # Get menu and storage data
     menu = recipe.get_drink_list()  # List of drink names (e.g., ["cola", "water", "lemonade"])
-    storage = pump_ctrl.read_storage()  # Dictionary with drink quantities
+    storage = pump_ctrl.read_storage()  # List with liquid amounts for each pump
 
     while True:
         # Wait for a face to be recognized
@@ -31,7 +31,7 @@ def main():
         tts.text_to_speech("What drink would you like?")
 
         # List available drinks
-        available_drinks = [drink for drink in menu if storage.get(drink, 0) > 0]
+        available_drinks = [drink for drink in menu if menu[drink]["amount"] <= storage[menu[drink]["pump"] - 1]]
         if not available_drinks:
             tts.text_to_speech("I'm sorry, we're out of stock for all drinks.")
             continue
@@ -43,8 +43,16 @@ def main():
             drink_choice = stt.listen_until_keyword(available_drinks)
             if drink_choice in available_drinks:
                 tts.text_to_speech(f"Great choice! Pouring {drink_choice} now.")
-                pump_ctrl.actuate_pump(drink_choice, 180)  # Adjust pump logic as needed
-                storage[drink_choice] -= 1  # Update storage
+
+                # Get pump number and amount from the menu
+                pump = menu[drink_choice]["pump"]
+                amount = menu[drink_choice]["amount"]
+
+                # Actuate pump and update storage
+                pump_ctrl.actuate_pump(pump, amount)
+                storage[pump - 1] -= amount
+                pump_ctrl.write_storage(storage)
+
                 tts.text_to_speech("Your drink is ready. Enjoy!")
             else:
                 tts.text_to_speech("I didn't catch that. Please choose a drink from the menu.")
