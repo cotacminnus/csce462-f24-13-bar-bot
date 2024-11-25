@@ -70,7 +70,7 @@ class FacialRecognition:
             print(f"Edge intensity in ROI: {edge_intensity}")
 
             # Thresholds for detection
-            if edge_intensity > 500:  # Adjust threshold based on testing
+            if edge_intensity > 300:  # Adjust threshold based on testing
                 print("Face-like structure detected!")
                 return True
             else:
