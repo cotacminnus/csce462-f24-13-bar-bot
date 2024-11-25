@@ -39,6 +39,8 @@ def main():
                 #if getting user speech, respond
                 #if asking for drink, goto drink dispensing
                 #if face not recognized, go back to the beginning
+
+        time.sleep(1)
         try:
             stt.listen_until_keyword("water")
         except:
