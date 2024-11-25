@@ -3,7 +3,17 @@ from speech_recog import Speech2Text
 from poll_fr import FacialRecognition
 import pump_ctrl
 import time
-import recipe
+import csv
+
+# Load drink recipes from CSV
+def load_recipes(filepath="pump_data/recipelist.csv"):
+    recipes = {}
+    with open(filepath, mode="r") as file:
+        reader = csv.reader(file)
+        for row in reader:
+            drink, *amounts = row
+            recipes[drink.lower()] = [int(amount) for amount in amounts]
+    return recipes
 
 def main():
     # Initialize Text-to-Speech, Speech-to-Text, and Facial Recognition
@@ -14,8 +24,8 @@ def main():
     tts.init()
     stt.init("/home/asCSCE462/Desktop/csce462-f24-13-bar-bot/model/vosk-model-small-en-us-0.15")
 
-    # Get menu and storage data
-    menu = recipe.get_drink_list()  # List of drink names (e.g., ["cola", "water", "lemonade"])
+    # Load recipes and storage data
+    recipes = load_recipes()  # Dictionary of drinks and their pump amounts
     storage = pump_ctrl.read_storage()  # List with liquid amounts for each pump
 
     while True:
@@ -31,7 +41,11 @@ def main():
         tts.text_to_speech("What drink would you like?")
 
         # List available drinks
-        available_drinks = [drink for drink in menu if menu[drink]["amount"] <= storage[menu[drink]["pump"] - 1]]
+        available_drinks = []
+        for drink, pump_amounts in recipes.items():
+            if all(storage[i] >= pump_amounts[i] for i in range(len(pump_amounts))):
+                available_drinks.append(drink)
+
         if not available_drinks:
             tts.text_to_speech("I'm sorry, we're out of stock for all drinks.")
             continue
@@ -44,13 +58,16 @@ def main():
             if drink_choice in available_drinks:
                 tts.text_to_speech(f"Great choice! Pouring {drink_choice} now.")
 
-                # Get pump number and amount from the menu
-                pump = menu[drink_choice]["pump"]
-                amount = menu[drink_choice]["amount"]
+                # Get the pump amounts for the selected drink
+                pump_amounts = recipes[drink_choice]
 
-                # Actuate pump and update storage
-                pump_ctrl.actuate_pump(pump, amount)
-                storage[pump - 1] -= amount
+                # Dispense from each pump as needed
+                for pump, amount in enumerate(pump_amounts, start=1):
+                    if amount > 0:
+                        #pump_ctrl.actuate_pump(pump, amount)
+                        storage[pump - 1] -= amount  # Update storage
+
+                # Save the updated storage
                 pump_ctrl.write_storage(storage)
 
                 tts.text_to_speech("Your drink is ready. Enjoy!")
@@ -66,7 +83,6 @@ def main():
 
 if __name__ == "__main__":
     main()
-
 
 '''
 from tts import Text2Speech
