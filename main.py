@@ -7,6 +7,84 @@ import recipe
 
 '''
 Logic of the main function:
+    Standby until a face is recognized -> Greet -> Answer questions -> If requested, pour drink
+'''
+
+def main():
+    # Initialize Text-to-Speech, Speech-to-Text, and Facial Recognition
+    tts = Text2Speech()
+    stt = Speech2Text()
+    facial = FacialRecognition()
+
+    tts.init()
+    stt.init("/home/asCSCE462/Desktop/csce462-f24-13-bar-bot/model/vosk-model-small-en-us-0.15")
+
+    # Get menu and storage data
+    menu = recipe.get_drink_list()
+    storage = pump_ctrl.read_storage()
+
+    while True:
+        # Wait for a face to be recognized
+        print("Polling for a face...")
+        tts.text_to_speech("Scanning for a customer.")
+        while not facial.poll_webcam(interval=1, save_path="output/captured_image.jpg"):
+            time.sleep(1)  # Wait 1 second between polling attempts
+
+        # Greet the customer
+        tts.text_to_speech("Howdy! Welcome to the bar bot!")
+        print("Face detected. Greeted the customer.")
+
+        # Interact with the customer
+        while True:
+            try:
+                tts.text_to_speech("What can I do for you?")
+                user_input = stt.listen_until_keyword("drink")  # Listen for a drink request
+                print(f"User said: {user_input}")
+
+                if "drink" in user_input.lower():
+                    tts.text_to_speech("Sure! What drink would you like?")
+                    
+                    # List available drinks
+                    available_drinks = [drink for drink in menu if menu[drink] <= storage.get(drink, 0)]
+                    if not available_drinks:
+                        tts.text_to_speech("I'm sorry, we're out of stock for all drinks.")
+                        break
+
+                    tts.text_to_speech("Available drinks are: " + ", ".join(available_drinks))
+                    drink_choice = stt.listen_until_keyword(available_drinks)
+
+                    if drink_choice in available_drinks:
+                        tts.text_to_speech(f"Great choice! Pouring {drink_choice} now.")
+                        pump_ctrl.actuate_pump(menu[drink_choice], 180)  # Adjust pump logic as needed
+                        storage[drink_choice] -= menu[drink_choice]  # Update storage
+                        tts.text_to_speech("Your drink is ready. Enjoy!")
+                        break
+                    else:
+                        tts.text_to_speech("I didn't catch that. Could you repeat the drink name?")
+                else:
+                    tts.text_to_speech("Let me know if you need a drink!")
+            except Exception as e:
+                print(f"Error during interaction: {e}")
+                continue
+
+        # Reset and wait for the next customer
+        print("Interaction complete. Resetting...")
+        time.sleep(2)
+
+if __name__ == "__main__":
+    main()
+
+
+'''
+from tts import Text2Speech
+from speech_recog import Speech2Text
+from poll_fr import FacialRecognition
+import pump_ctrl
+import time
+import recipe
+
+'''
+Logic of the main function:
     standby until a face is recognized  ->  Greet   <->  answer questions ->  if requested, pour drink
 '''
 
@@ -58,3 +136,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+'''
