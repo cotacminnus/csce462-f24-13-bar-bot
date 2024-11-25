@@ -33,6 +33,7 @@ def main():
         tts.text_to_speech("Howdy! I am the bar bot! What can I get for you to drink?")
         print("Face detected. Greeted the customer.")
 
+        time.sleep(4)
 
          #while not asking for drink
             #wait for user speech
@@ -45,7 +46,7 @@ def main():
         except:
             continue
         print("Run!")
-        tts.text_to_speech("Pouring water. Make sure cup is under nosel")
+        tts.text_to_speech("Pouring water. Make sure cup is under nozzle")
 
         time.sleep(1)
 
