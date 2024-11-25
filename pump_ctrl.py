@@ -56,4 +56,4 @@ def actuate_pump(pump, amount):
     time.sleep(t)
     motor.throttle = 0.0
 
-    print(f"Pump {pump} dispensed {amount} mL. Remaining: {storage_levels[pump - 1]} mL.")
+    #print(f"Pump {pump} dispensed {amount} mL. Remaining: {storage_levels[pump - 1]} mL.")
