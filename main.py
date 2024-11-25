@@ -1,6 +1,6 @@
 from tts import Text2Speech
 from speech_recog import Speech2Text
-from facial_recog import FacialRecognition
+from poll_fr import FacialRecognition
 import pump_ctrl
 import time
 import recipe
@@ -13,7 +13,7 @@ Logic of the main function:
 def main():
     tts = Text2Speech()
     stt = Speech2Text()
-    # facial = Facial_Recognition()
+    facial = Facial_Recognition()
 
     tts.init()
     stt.init("/home/asCSCE462/Desktop/csce462-f24-13-bar-bot/model/vosk-model-small-en-us-0.15")
@@ -24,12 +24,14 @@ def main():
 
     #Facial recognition will be polling
     while True:
-        #while(noface):
-            #try to recognize face every second
-            #if face detected, break
+        print("Polling for a face...")
+        tts.text_to_speech("Scanning for a customer.")
+        while not facial.poll_webcam(interval=1, save_path="output/captured_image.jpg"):
+            time.sleep(1)  # Wait 1 second between polling attempts
 
-        #greet
-        tts.text_to_speech("Howdy!")
+        # Greet the customer
+        tts.text_to_speech("Howdy! Welcome to the bar bot!")
+        print("Face detected. Greeted the customer.")
 
 
          #while not asking for drink
