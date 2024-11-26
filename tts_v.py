@@ -1,51 +1,25 @@
 import pyttsx3
-import threading
+from multiprocessing import Process
 
-# This is implemented as a class for convenience
-class Text2Speech:
-    engine = None
-
-    # in case we need these
-    volume = 2
-    rate = None     # speed
-    gender = None   # 0: Male, 1: Female
-    
-
-    def init(self):
+class MultiprocessTextToSpeech:
+    def __init__(self):
         self.engine = pyttsx3.init()
-
-        #in case we need these
-        self.volume = self.engine.getProperty('volume')
-        self.rate = self.engine.getProperty('rate')
-        self.gender = self.engine.getProperty('voices')
+        self.engine.setProperty("rate", 150)
+        self.engine.setProperty("volume", 1.0)
 
     def _speak(self, text):
         """
-        Internal method to handle speech synthesis.
+        Synchronous speech synthesis.
+        """
+        self.engine.say(text)
+        self.engine.runAndWait()
+
+    def speak(self, text):
+        """
+        Uses a separate process for text-to-speech.
         :param text: The text to be spoken aloud.
         """
-        with self.lock:
-            if not self.engine.isBusy():  # Check if the engine is not already speaking
-                self.engine.say(text)
-                self.engine.runAndWait()  # This blocks, but it's inside a thread
+        process = Process(target=self._speak, args=(text,))
+        process.start()
+        process.join()
 
-    def text_to_speech(self, text):
-        """
-        Speaks the given text asynchronously using a separate thread.
-        :param text: The text to be spoken aloud.
-        """
-        thread = threading.Thread(target=self._speak, args=(text,), daemon=True)
-        thread.start()
-
-    
-    def stop(self):
-        self.engine.stop()  # stops the engine
-
-    '''
-
-    ### If we decide to go online then we will have to implement this
-
-    def connect(token):
-                        # use API if necessary
-        return False
-    '''
