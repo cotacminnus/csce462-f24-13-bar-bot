@@ -22,6 +22,7 @@ def main():
     tts = Text2Speech()
     stt = Speech2Text()
     facial = FacialRecognition()
+    t = TextToSpeech()
 
     tts.init()
     stt.init("/home/asCSCE462/Desktop/csce462-f24-13-bar-bot/model/vosk-model-small-en-us-0.15")
@@ -58,11 +59,9 @@ def main():
         my_list = [f'"{item}"' for item in l_list]
         f_list = ", ".join(f'"{item}"' for item in l_list)
         tts.text_to_speech("Available drinks are: ")
-        drinks = f"{drink_list_str}"
-        print(drinks)
+        t.speak_list(l_list)
         drinks = str(drinks)
-        tts.text_to_speech(x)
-        tts.text_to_speech(drinks)
+
 
 
         # Listen for drink choice
