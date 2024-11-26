@@ -85,6 +85,7 @@ def main():
                     if amount > 0:
                         pump_ctrl.actuate_pump(pump, amount)
                         storage[pump - 1] -= amount  # Update storage
+                        print(pump)
 
                 # Save the updated storage
                 pump_ctrl.write_storage(storage)
