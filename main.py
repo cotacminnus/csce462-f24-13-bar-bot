@@ -1,4 +1,5 @@
 from tts import Text2Speech
+from tts_v import TextToSpeech
 from speech_recog import Speech2Text
 from poll_fr import FacialRecognition
 import pump_ctrl
@@ -21,8 +22,10 @@ def main():
     tts = Text2Speech()
     stt = Speech2Text()
     facial = FacialRecognition()
+    tts1 = TextToSpeech()
     
     tts.init()
+    tts1.init()
     stt.init("/home/asCSCE462/Desktop/csce462-f24-13-bar-bot/model/vosk-model-small-en-us-0.15")
 
     # Load recipes and storage data
@@ -59,7 +62,7 @@ def main():
         
         tts.text_to_speech("Available drinks are: ")
         print(drink_list_str)
-        tts.text_to_speech(drink_list_str)
+        tts1.text_to_speech(drink_list_str)
 
 
         # Listen for drink choice
