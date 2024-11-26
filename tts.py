@@ -47,13 +47,10 @@ class Text2Speech:
     def stop(self):
         self.engine.stop()  # stops the engine
 
-        '''
-
-    '''
 
     ### If we decide to go online then we will have to implement this
 
     def connect(token):
                         # use API if necessary
         return False
-    '''
+'''
