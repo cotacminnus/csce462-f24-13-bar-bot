@@ -83,7 +83,7 @@ def main():
                 # Dispense from each pump as needed
                 for pump, amount in enumerate(pump_amounts, start=1):
                     if amount > 0:
-                        #pump_ctrl.actuate_pump(pump, amount)
+                        pump_ctrl.actuate_pump(pump, amount)
                         storage[pump - 1] -= amount  # Update storage
 
                 # Save the updated storage
