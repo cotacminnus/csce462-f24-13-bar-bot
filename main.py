@@ -60,7 +60,7 @@ def main():
         tts.text_to_speech("Available drinks are: ")
         print(drink_list_str)
 
-        time.sleep(5)
+        tts.text_to_speech("Howdy! Welcome to the bar bot! Available drinks are ")
         tts.text_to_speech(drink_list_str)
 
 
