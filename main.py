@@ -50,7 +50,7 @@ def main():
             tts.text_to_speech("I'm sorry, we're out of stock for all drinks.")
             continue
 
-        drink_list_str = ", ".join(available_drinks)
+        drink_list_str = " ".join(available_drinks)
         l_list = [item.lower() for item in available_drinks]
         my_list = [f'"{item}"' for item in l_list]
         f_list = ", ".join(f'"{item}"' for item in l_list)
