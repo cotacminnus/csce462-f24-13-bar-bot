@@ -17,7 +17,7 @@ class TextToSpeech:
         thread = threading.Thread(target=self._speak, args=(text,))
         thread.start()
 
-'''
+
 class Text2Speech:
     engine = None
 
@@ -44,7 +44,7 @@ class Text2Speech:
     def stop(self):
         self.engine.stop()  # stops the engine
 
-'''
+
 '''
     ### If we decide to go online then we will have to implement this
 
