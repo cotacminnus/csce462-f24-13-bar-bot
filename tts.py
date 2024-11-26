@@ -5,7 +5,7 @@ class Text2Speech:
     engine = None
 
     # in case we need these
-    volume = 5
+    volume = 2
     rate = None     # speed
     gender = None   # 0: Male, 1: Female
     
