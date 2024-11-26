@@ -51,7 +51,7 @@ def main():
 
         drink_list_str = ", ".join(available_drinks)
         l_list = [item.lower() for item in available_drinks]
-        my_list = [f'"{item}"' for item in l_list]
+        my_list = [f"{item}" for item in l_list]
         print(my_list)
         tts.text_to_speech("Available drinks are: ")
         for item in my_list:
