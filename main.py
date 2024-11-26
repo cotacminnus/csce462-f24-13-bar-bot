@@ -54,8 +54,10 @@ def main():
 
         # Listen for drink choice
         try:
-            drink_choice = stt.listen_until_keyword(available_drinks)
-            if drink_choice in available_drinks:
+            recognized_text = stt.listen_until_keyword()  # Get raw speech
+            drink_choice = next((drink for drink in available_drinks if drink in recognized_text.lower()), None)
+
+            if drink_choice:
                 tts.text_to_speech(f"Great choice! Pouring {drink_choice} now.")
 
                 # Get the pump amounts for the selected drink
@@ -64,7 +66,7 @@ def main():
                 # Dispense from each pump as needed
                 for pump, amount in enumerate(pump_amounts, start=1):
                     if amount > 0:
-                        #pump_ctrl.actuate_pump(pump, amount)
+                        pump_ctrl.actuate_pump(pump, amount)
                         storage[pump - 1] -= amount  # Update storage
 
                 # Save the updated storage
@@ -83,6 +85,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 '''
 from tts import Text2Speech
