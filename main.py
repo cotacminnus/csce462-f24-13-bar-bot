@@ -52,7 +52,9 @@ def main():
         drink_list_str = ", ".join(available_drinks)
         l_list = [item.lower() for item in available_drinks]
         print(l_list)
-        tts.text_to_speech("Available drinks are: " + l_list)
+        tts.text_to_speech("Available drinks are: ")
+        for item in l_list:
+            tts.text_to_speech(item)
 
 
         # Listen for drink choice
