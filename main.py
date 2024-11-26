@@ -52,7 +52,7 @@ def main():
                 available_drinks.append(drink)
 
         if not available_drinks:
-            tts.text_to_speech("I'm sorry, we're out of stock for all drinks.")
+            tts1.text_to_speech("I'm sorry, we're out of stock for all drinks.")
             continue
 
 
@@ -90,12 +90,12 @@ def main():
                 pump_ctrl.write_storage(storage)
                 print(storage)
 
-                tts.text_to_speech("Your drink is ready. Enjoy!")
+                tts1.text_to_speech("Your drink is ready. Enjoy!")
             else:
-                tts.text_to_speech("I didn't catch that. Please choose a drink from the menu.")
+                tts1.text_to_speech("I didn't catch that. Please choose a drink from the menu.")
         except Exception as e:
             print(f"Error during interaction: {e}")
-            tts.text_to_speech("Sorry, something went wrong. Please try again.")
+            tts1.text_to_speech("Sorry, something went wrong. Please try again.")
 
         # Reset for the next customer
         print("Interaction complete. Resetting...")
