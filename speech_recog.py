@@ -25,13 +25,13 @@ class Speech2Text:
         :return: The recognized keyword if detected.
         """
 
-        time.sleep(3)
         if not isinstance(keywords, list):
             raise ValueError("Keywords must be provided as a list.")
         with sd.RawInputStream(samplerate=self.sample_rate, blocksize=8000, dtype="int16",
                                channels=1, callback=self.audio_callback):
             print("Listening...")
             while True:
+                time.sleep(10)
                 # Get audio data from the queue
                 data = self.audio_queue.get()
                 # Pass data to the recognizer
