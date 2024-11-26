@@ -32,8 +32,8 @@ class Speech2Text:
         with sd.RawInputStream(samplerate=self.sample_rate, blocksize=8000, dtype="int16",
                                channels=1, callback=self.audio_callback):
             print("Listening...")
+            time.sleep(6)
             while True:
-                time.sleep(6)
                 # Get audio data from the queue
                 data = self.audio_queue.get()
                 # Pass data to the recognizer
