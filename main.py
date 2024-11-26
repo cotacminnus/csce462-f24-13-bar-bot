@@ -55,7 +55,7 @@ def main():
         my_list = [f'"{item}"' for item in l_list]
         f_list = ", ".join(f'"{item}"' for item in l_list)
         tts.text_to_speech("Available drinks are: ")
-        drinks = json.dumps(drink_list_str)
+        drinks = f"{drink_list_str}"
         print(drinks)
         tts.text_to_speech(drinks)
 
