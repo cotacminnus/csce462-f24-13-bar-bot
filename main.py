@@ -65,7 +65,7 @@ def main():
 
         tts.text_to_speech(drink_list_str)
 
-
+        print(recipes)
         # Listen for drink choice
         try:
             recognized_text = stt.listen_until_keyword(keywords = available_drinks)  # Get raw speech
