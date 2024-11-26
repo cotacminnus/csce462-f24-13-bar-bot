@@ -1,4 +1,5 @@
 import pyttsx3
+import threading
 
 # This is implemented as a class for convenience
 class Text2Speech:
