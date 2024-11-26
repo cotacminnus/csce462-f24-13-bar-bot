@@ -28,6 +28,9 @@ class Speech2Text:
         :param keywords: List of keywords to detect.
         :return: The recognized keyword if detected.
         """
+
+
+        time.sleep(5)
         if not isinstance(keywords, list):
             raise ValueError("Keywords must be provided as a list.")
 
