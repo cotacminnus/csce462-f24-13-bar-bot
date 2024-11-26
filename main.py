@@ -60,7 +60,8 @@ def main():
         f_list = ", ".join(f'"{item}"' for item in l_list)
         tts.text_to_speech("Available drinks are: ")
         print(drink_list_str)
-        tts.text_to_speech(drink_list_str)
+        time.sleep(2)
+        t.text_to_speech(drink_list_str)
 
 
 
