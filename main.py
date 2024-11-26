@@ -50,10 +50,9 @@ def main():
             tts.text_to_speech("I'm sorry, we're out of stock for all drinks.")
             continue
 
-        print(available_drinks)
 
-        string_a = [str(element) for element in available_drinks]
-        tts.text_to_speech("Here are the available drinks: Orange, Yellow, Blue, Water, Margarita")
+
+        tts.text_to_speech("Here are the available drinks, Orange, Yellow, Blue, Water, Margarita")
 
         # Listen for drink choice
         try:
