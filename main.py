@@ -54,7 +54,7 @@ def main():
             tts.text_to_speech("I'm sorry, we're out of stock for all drinks.")
             continue
 
-
+        time.sleep(5)
 
 
         # Listen for drink choice
