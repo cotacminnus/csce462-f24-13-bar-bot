@@ -1,6 +1,7 @@
 from tts import Text2Speech
 from speech_recog import Speech2Text
 from poll_fr import FacialRecognition
+from tts_v import MultiprocessTextToSpeech
 import pump_ctrl
 import time
 import csv
