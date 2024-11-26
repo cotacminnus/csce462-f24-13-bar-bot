@@ -50,6 +50,7 @@ def main():
             tts.text_to_speech("I'm sorry, we're out of stock for all drinks.")
             continue
 
+        print(available_drinks)
         tts.text_to_speech("Here are the available drinks:")
         for drink in available_drinks:
             tts.text_to_speech(drink)
