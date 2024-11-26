@@ -44,6 +44,8 @@ def main():
         print("Face detected. Greeted the customer.")
 
         # List available drinks
+        
+        
         available_drinks = []
         for drink, pump_amounts in recipes.items():
             if all(storage[i] >= pump_amounts[i] for i in range(len(pump_amounts))):
