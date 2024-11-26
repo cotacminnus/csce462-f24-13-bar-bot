@@ -18,7 +18,7 @@ def load_recipes(filepath="pump_data/recipelist.csv"):
 
 def main():
     # Initialize Text-to-Speech, Speech-to-Text, and Facial Recognition
-    tts = Text2Speech()
+    tts = TextToSpeech()
     stt = Speech2Text()
     facial = FacialRecognition()
     
