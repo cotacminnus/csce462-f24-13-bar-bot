@@ -1,8 +1,10 @@
-import time
 import sounddevice as sd
 import queue
 import json
+import time
 from vosk import Model, KaldiRecognizer
+
+
 class Speech2Text:
     def __init__(self):
         self.model = None
@@ -31,7 +33,7 @@ class Speech2Text:
                                channels=1, callback=self.audio_callback):
             print("Listening...")
             while True:
-                time.sleep(10)
+                time.sleep(6)
                 # Get audio data from the queue
                 data = self.audio_queue.get()
                 # Pass data to the recognizer
