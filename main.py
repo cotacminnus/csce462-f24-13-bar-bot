@@ -4,6 +4,7 @@ from poll_fr import FacialRecognition
 import pump_ctrl
 import time
 import csv
+import json
 
 # Load drink recipes from CSV
 def load_recipes(filepath="pump_data/recipelist.csv"):
@@ -53,9 +54,10 @@ def main():
         l_list = [item.lower() for item in available_drinks]
         my_list = [f'"{item}"' for item in l_list]
         f_list = ", ".join(f'"{item}"' for item in l_list)
-        print(drink_list_str)
         tts.text_to_speech("Available drinks are: ")
-        tts.text_to_speech(drink_list_str)
+        drinks = json.dumps(drink_list_str)
+        print(drinks)
+        tts.text_to_speech(drinks)
 
 
         # Listen for drink choice
