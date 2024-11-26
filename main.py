@@ -54,7 +54,7 @@ def main():
 
         # Listen for drink choice
         try:
-            recognized_text = stt.listen_until_keyword()  # Get raw speech
+            recognized_text = stt.listen_until_keyword(keyword = available_drinks)  # Get raw speech
             drink_choice = next((drink for drink in available_drinks if drink in recognized_text.lower()), None)
 
             if drink_choice:
