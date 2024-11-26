@@ -1,3 +1,5 @@
+
+'''
 import sounddevice as sd
 import queue
 import json
@@ -93,5 +95,5 @@ class Speech2Text:
                     buf = result["text"]
             print("Hit!")
 
-'''
+
 
