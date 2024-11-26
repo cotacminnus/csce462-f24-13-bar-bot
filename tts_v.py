@@ -36,11 +36,6 @@ class Text2Speech:
         thread = threading.Thread(target=self._speak, args=(text,))
         thread.start()  # Start the thread
 
-    def text_to_speech(self, text):
-        self.engine.say(text)
-
-        self.engine.runAndWait()
-
     
     def stop(self):
         self.engine.stop()  # stops the engine
