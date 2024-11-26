@@ -19,9 +19,11 @@ def load_recipes(filepath="pump_data/recipelist.csv"):
 def main():
     # Initialize Text-to-Speech, Speech-to-Text, and Facial Recognition
     tts = TextToSpeech()
+    tts1 = Text2Speech()
     stt = Speech2Text()
     facial = FacialRecognition()
-    
+
+    tts1.init()
     tts.init()
     stt.init("/home/asCSCE462/Desktop/csce462-f24-13-bar-bot/model/vosk-model-small-en-us-0.15")
 
@@ -32,7 +34,7 @@ def main():
     while True:
         # Wait for a face to be recognized
         print("Polling for a face...")
-        tts.text_to_speech("Scanning for a customer.")
+        tts1.text_to_speech("Scanning for a customer.")
         while not facial.poll_webcam(interval=1, save_path="output/captured_image.jpg"):
             time.sleep(1)  # Wait 1 second between polling attempts
 
@@ -69,7 +71,7 @@ def main():
             drink_choice = next((drink for drink in available_drinks if drink in recognized_text.lower()), None)
 
             if drink_choice:
-                tts.text_to_speech(f"Great choice! Pouring {drink_choice} now.")
+                tts1.text_to_speech(f"Great choice! Pouring {drink_choice} now.")
 
                 # Get the pump amounts for the selected drink
                 pump_amounts = recipes[drink_choice]
