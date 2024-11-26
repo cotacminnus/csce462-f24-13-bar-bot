@@ -31,7 +31,6 @@ class Speech2Text:
         """
 
 
-        time.sleep(5)
         if not isinstance(keywords, list):
             raise ValueError("Keywords must be provided as a list.")
 
