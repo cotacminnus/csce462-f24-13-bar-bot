@@ -1,7 +1,7 @@
 import pyttsx3
 import threading
 
-class Text2Speech:
+class TextToSpeech:
     def init(self):
         self.engine = pyttsx3.init()
         self.engine.setProperty("rate", 150)
