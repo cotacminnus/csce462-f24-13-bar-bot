@@ -35,6 +35,8 @@ class TextToSpeech:
         while self.engine.isBusy():
             self.engine.iterate()  # Process events
 
+        self.engine.endLoop()
+
     def stop_speaking(self):
         """
         Stop the speech engine and clear the queue.
