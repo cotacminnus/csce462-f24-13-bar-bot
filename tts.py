@@ -16,10 +16,7 @@ class TextToSpeech:
     def text_to_speech(self, text):
         thread = threading.Thread(target=self._speak, args=(text,))
         thread.start()
-'''
-import pyttsx3
 
-# This is implemented as a class for convenience
 class Text2Speech:
     engine = None
 
@@ -46,7 +43,6 @@ class Text2Speech:
     def stop(self):
         self.engine.stop()  # stops the engine
 
-'''
 
 '''
     ### If we decide to go online then we will have to implement this
