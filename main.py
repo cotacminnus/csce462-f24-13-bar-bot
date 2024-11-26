@@ -38,7 +38,7 @@ def main():
         # Greet the customer and list available drinks
         tts.text_to_speech("Howdy! Welcome to the bar bot!")
         print("Face detected. Greeted the customer.")
-        tts.text_to_speech("What drink would you like?")
+        tts.text_to_speech("Here are the available drinks, Orange, Yellow, Blue, Water, Margarita")
 
         # List available drinks
         available_drinks = []
@@ -52,7 +52,6 @@ def main():
 
 
 
-        tts.text_to_speech("Here are the available drinks, Orange, Yellow, Blue, Water, Margarita")
 
         # Listen for drink choice
         try:
