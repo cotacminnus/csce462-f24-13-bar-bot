@@ -59,6 +59,7 @@ def main():
         tts.text_to_speech("Available drinks are: ")
         drinks = f"{drink_list_str}"
         print(drinks)
+        drinks = str(drinks)
         tts.text_to_speech(x)
         tts.text_to_speech(drinks)
 
