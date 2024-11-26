@@ -65,7 +65,6 @@ def main():
 
         tts.text_to_speech(drink_list_str)
 
-        print(recipes)
         # Listen for drink choice
         try:
             recognized_text = stt.listen_until_keyword(keywords = available_drinks)  # Get raw speech
@@ -82,11 +81,10 @@ def main():
                     if amount > 0:
                         #pump_ctrl.actuate_pump(pump, amount)
                         storage[pump - 1] -= amount  # Update storage
-                        print(storage[pump-1])
-                        print(amount)
 
                 # Save the updated storage
                 pump_ctrl.write_storage(storage)
+                print(storage)
 
                 tts.text_to_speech("Your drink is ready. Enjoy!")
             else:
