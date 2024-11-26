@@ -53,9 +53,7 @@ def main():
         print(available_drinks)
 
         string_a = [str(element) for element in available_drinks]
-        tts.text_to_speech("Here are the available drinks:")
-        for drink in string_a:
-            tts.text_to_speech(drink)
+        tts.text_to_speech("Here are the available drinks: Orange, Yellow, Blue, Water, Margarita")
 
         # Listen for drink choice
         try:
