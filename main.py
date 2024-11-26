@@ -40,7 +40,7 @@ def main():
             time.sleep(1)  # Wait 1 second between polling attempts
 
         # Greet the customer and list available drinks
-        tts1.text_to_speech("Howdy! Welcome to the bar bot! Available drinks are orange, blue, yellow, water")
+        tts1.text_to_speech("Howdy! Welcome to the bar bot! Available drinks are orange blue yellow water")
         print("Face detected. Greeted the customer.")
 
         # List available drinks
