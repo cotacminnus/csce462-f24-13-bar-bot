@@ -1,4 +1,4 @@
-from tts import Text2Speech
+from tts import TextToSpeech
 from speech_recog import Speech2Text
 from poll_fr import FacialRecognition
 import pump_ctrl
