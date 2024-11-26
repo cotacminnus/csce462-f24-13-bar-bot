@@ -1,64 +1,55 @@
 import pyttsx3
+import threading
 
-class TextToSpeech:
-    def __init__(self):
-        """
-        Initialize the TTS engine and set default properties.
-        """
+# This is implemented as a class for convenience
+class Text2Speech:
+    engine = None
+
+    # in case we need these
+    volume = 2
+    rate = None     # speed
+    gender = None   # 0: Male, 1: Female
+    
+
+    def init(self):
         self.engine = pyttsx3.init()
-        self.engine.setProperty("rate", 150)  # Set speech rate
-        self.engine.setProperty("volume", 1.0)  # Set volume to max (1.0)
 
-    def speak(self, input_variable):
+        #in case we need these
+        self.volume = self.engine.getProperty('volume')
+        self.rate = self.engine.getProperty('rate')
+        self.gender = self.engine.getProperty('voices')
+
+    def _speak(self, text):
         """
-        Convert any input variable to speech without using runAndWait().
-        :param input_variable: The input to be spoken. Can be a string, number, boolean, list, etc.
+        Internal method to handle speech synthesis.
+        :param text: The text to be spoken aloud.
         """
-        # Ensure the input is converted to a string
-        try:
-            text = str(input_variable)  # Convert variable to string
-        except Exception as e:
-            raise ValueError(f"Cannot convert input to string: {e}")
+        self.engine.say(text)
+        self.engine.runAndWait()  # This blocks, but it's inside a thread
 
-        # Check if the resulting string is valid
-        if not text.strip():  # Check for empty or whitespace-only strings
-            raise ValueError("Input is empty or invalid for TTS.")
+    def text_to_speech(self, text):
+        """
+        Speaks the given text asynchronously using a separate thread.
+        :param text: The text to be spoken aloud.
+        """
+        # Create and start a thread for the speech
+        thread = threading.Thread(target=self._speak, args=(text,))
+        thread.start()  # Start the thread
 
-        # Queue the text for speech
+    def text_to_speech(self, text):
         self.engine.say(text)
 
-    def start_speaking(self):
-        """
-        Process the speech queue asynchronously.
-        """
-        self.engine.startLoop(False)  # Start the loop without blocking
-        while self.engine.isBusy():
-            self.engine.iterate()  # Process events
+        self.engine.runAndWait()
 
-        self.engine.endLoop()
+    
+    def stop(self):
+        self.engine.stop()  # stops the engine
 
-    def stop_speaking(self):
-        """
-        Stop the speech engine and clear the queue.
-        """
-        self.engine.stop()
+    '''
 
-    def speak_list(self, input_list):
-        """
-        Speak each item in a list without using runAndWait().
-        :param input_list: A list of items to be spoken. Items are converted to strings if needed.
-        """
-        if not isinstance(input_list, list):
-            raise ValueError("Input must be a list.")
+    ### If we decide to go online then we will have to implement this
 
-        for item in input_list:
-            try:
-                text = str(item)  # Convert each item to a string
-                if text.strip():  # Speak non-empty strings only
-                    self.speak(text)  # Queue the item
-                else:
-                    print(f"Skipping empty item: {item}")
-            except Exception as e:
-                print(f"Error processing item {item}: {e}")
-
-        self.start_speaking()  # Process the speech queue asynchronously
+    def connect(token):
+                        # use API if necessary
+        return False
+    '''
