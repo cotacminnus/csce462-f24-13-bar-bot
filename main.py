@@ -1,4 +1,4 @@
-from tts import TextToSpeech
+#from tts import TextToSpeech
 from tts import Text2Speech
 from speech_recog import Speech2Text
 from poll_fr import FacialRecognition
@@ -19,13 +19,13 @@ def load_recipes(filepath="pump_data/recipelist.csv"):
 
 def main():
     # Initialize Text-to-Speech, Speech-to-Text, and Facial Recognition
-    tts = TextToSpeech()
+    #tts = TextToSpeech()
     tts1 = Text2Speech()
     stt = Speech2Text()
     facial = FacialRecognition()
 
     tts1.init()
-    tts.init()
+    #tts.init()
     stt.init("/home/asCSCE462/Desktop/csce462-f24-13-bar-bot/model/vosk-model-small-en-us-0.15")
 
     # Load recipes and storage data
@@ -40,7 +40,7 @@ def main():
             time.sleep(1)  # Wait 1 second between polling attempts
 
         # Greet the customer and list available drinks
-        #tts.text_to_speech("Howdy! Welcome to the bar bot! Available drinks are ")
+        tts1.text_to_speech("Howdy! Welcome to the bar bot! Available drinks are orange, blue, yellow, water")
         print("Face detected. Greeted the customer.")
 
         # List available drinks
@@ -58,17 +58,20 @@ def main():
 
         x = "hi"
         drink_list_str = " ".join(available_drinks)
-        drink_list_str = "Howdy! Welcome to the bar bot! Available drinks are, " + drink_list_str
+        drink_list_str = "Howdy! Welcome to the bar bot! Available drinks are  " 
         l_list = [item.lower() for item in available_drinks]
         my_list = [f'"{item}"' for item in l_list]
         f_list = ", ".join(f'"{item}"' for item in l_list)
         
 
-        tts.text_to_speech(drink_list_str)
-
+        #tts.text_to_speech(drink_list_str)
+        
+        
+        
         # Listen for drink choice
         try:
-            recognized_text = stt.listen_until_keyword(keywords = available_drinks)  # Get raw speech
+            recognized_text = stt.listen_until_keyword(keyword = available_drinks)
+            # Get raw speech
             drink_choice = next((drink for drink in available_drinks if drink in recognized_text.lower()), None)
 
             if drink_choice:
