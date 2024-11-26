@@ -19,22 +19,10 @@ class Text2Speech:
         self.rate = self.engine.getProperty('rate')
         self.gender = self.engine.getProperty('voices')
 
-    def _speak(self, text):
-        """
-        Internal method to handle speech synthesis.
-        :param text: The text to be spoken aloud.
-        """
-        self.engine.say(text)
-        self.engine.runAndWait()  # This blocks, but it's inside a thread
-
     def text_to_speech(self, text):
-        """
-        Speaks the given text asynchronously using a separate thread.
-        :param text: The text to be spoken aloud.
-        """
-        # Create and start a thread for the speech
-        thread = threading.Thread(target=self._speak, args=(text,))
-        thread.start()  # Start the thread
+        self.engine.say(text)
+
+        self.engine.runAndWait()
 
     
     def stop(self):
