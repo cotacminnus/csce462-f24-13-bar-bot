@@ -56,7 +56,7 @@ def main():
 
         x = "hi"
         drink_list_str = "       ".join(available_drinks)
-        drink_list_str = "Howdy! Welcome to the bar bot! Available drinks are, " + drink_list_str
+        drink_list_str = "Howdy! Welcome to the bar bot! Available drinks are, " + avaliable_drinks[0] + avaliable_drinks[1] + avaliable_drinks[2] + avaliable_drinks[3] + avaliable_drinks[4]
         l_list = [item.lower() for item in available_drinks]
         my_list = [f'"{item}"' for item in l_list]
         f_list = ", ".join(f'"{item}"' for item in l_list)
