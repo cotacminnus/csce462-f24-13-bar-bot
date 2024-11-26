@@ -61,7 +61,7 @@ def main():
         
         tts.text_to_speech("Available drinks are: ")
         print(drink_list_str)
-        t.text_to_speech(drink_list_str)
+        #t.text_to_speech(drink_list_str)
 
 
 
