@@ -49,12 +49,11 @@ def main():
             tts.text_to_speech("I'm sorry, we're out of stock for all drinks.")
             continue
 
-        time.sleep(5)
+
 
 
         # Listen for drink choice
         try:
-            sleep.time(4)
             recognized_text = stt.listen_until_keyword(keywords = available_drinks)  # Get raw speech
             drink_choice = next((drink for drink in available_drinks if drink in recognized_text.lower()), None)
 
