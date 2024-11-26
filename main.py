@@ -37,7 +37,7 @@ def main():
             time.sleep(1)  # Wait 1 second between polling attempts
 
         # Greet the customer and list available drinks
-        tts.text_to_speech("Howdy! Welcome to the bar bot! Available drinks are ")
+        #tts.text_to_speech("Howdy! Welcome to the bar bot! Available drinks are ")
         print("Face detected. Greeted the customer.")
 
         # List available drinks
@@ -53,14 +53,13 @@ def main():
 
         x = "hi"
         drink_list_str = " ".join(available_drinks)
+        drink_list_str = "Howdy! Welcome to the bar bot! Available drinks are " + drink_list_str
         l_list = [item.lower() for item in available_drinks]
         my_list = [f'"{item}"' for item in l_list]
         f_list = ", ".join(f'"{item}"' for item in l_list)
         
-        tts.text_to_speech("Available drinks are: ")
         print(drink_list_str)
 
-        tts.text_to_speech("Howdy! Welcome to the bar bot! Available drinks are ")
         tts.text_to_speech(drink_list_str)
 
 
