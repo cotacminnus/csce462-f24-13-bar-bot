@@ -25,7 +25,10 @@ def write_storage(storage_levels):
 def refill_storage(amt_1, amt_2, amt_3, amt_4):
     with open(STORAGE_FILE, mode='w', newline='') as file:
         writer = csv.writer(file)
-        writer.writerow(amt_1,amt_2,amt_3,amt_4)
+        writer.writerow(amt_1)
+        writer.writerow(amt_2)
+        writer.writerow(amt_3)
+        writer.writerow(amt_4)
 
 
 # Calculates how long pump should run to dispense x amount of liquid
