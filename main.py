@@ -45,7 +45,7 @@ def main():
 
         # List available drinks
 
-        pump_ctrl.refill_storage(800,800,800,800)
+        pump_ctrl.refill_storage('800','800','800','800')
         
         available_drinks = []
         for drink, pump_amounts in recipes.items():
