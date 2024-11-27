@@ -30,7 +30,7 @@ def main():
 
     # Load recipes and storage data
     recipes = load_recipes()  # Dictionary of drinks and their pump amounts
-    #storage = pump_ctrl.read_storage()  # List with liquid amounts for each pump
+    storage = pump_ctrl.read_storage()  # List with liquid amounts for each pump
 
     while True:
         # Wait for a face to be recognized
@@ -45,7 +45,6 @@ def main():
 
         # List available drinks
 
-        pump_ctrl.refill_storage('800','800','800','800')
         
         available_drinks = []
         for drink, pump_amounts in recipes.items():
@@ -85,12 +84,12 @@ def main():
                 for pump, amount in enumerate(pump_amounts, start=1):
                     if amount > 0:
                         pump_ctrl.actuate_pump(pump, amount)
-                        #storage[pump - 1] -= amount  # Update storage
+                        storage[pump - 1] -= amount  # Update storage
                         print(pump)
 
                 # Save the updated storage
-                #pump_ctrl.write_storage(storage)
-                #print(storage)
+                pump_ctrl.write_storage(storage)
+                print(storage)
 
                 tts1.text_to_speech("Your drink is ready. Enjoy!")
             else:
