@@ -54,6 +54,7 @@ def main():
         if not available_drinks:
             tts1.text_to_speech("I'm sorry, we're out of stock for all drinks.")
             continue
+        available_drinks = ['orange', 'blue', 'yellow', 'water']
         print(available_drinks)
 
         x = "hi"
