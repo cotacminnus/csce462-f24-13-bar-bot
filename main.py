@@ -90,7 +90,7 @@ def main():
 
                 # Save the updated storage
                 #pump_ctrl.write_storage(storage)
-                print(storage)
+                #print(storage)
 
                 tts1.text_to_speech("Your drink is ready. Enjoy!")
             else:
