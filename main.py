@@ -45,7 +45,7 @@ def main():
 
         # List available drinks
 
-        storage1 = pump_ctrl.refill_storage()
+        pump_ctrl.refill_storage(800,800,800,800)
         
         available_drinks = []
         for drink, pump_amounts in recipes.items():
@@ -55,7 +55,6 @@ def main():
         if not available_drinks:
             tts1.text_to_speech("I'm sorry, we're out of stock for all drinks.")
             continue
-        available_drinks = ['orange', 'blue', 'yellow', 'water']
         print(available_drinks)
 
         x = "hi"
