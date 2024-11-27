@@ -44,7 +44,8 @@ def main():
         print("Face detected. Greeted the customer.")
 
         # List available drinks
-        
+
+        storage1 = pump_ctrl.refill_storage()
         
         available_drinks = []
         for drink, pump_amounts in recipes.items():
