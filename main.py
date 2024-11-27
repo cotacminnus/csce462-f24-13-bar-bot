@@ -30,7 +30,7 @@ def main():
 
     # Load recipes and storage data
     recipes = load_recipes()  # Dictionary of drinks and their pump amounts
-    storage = ['800','800','800','800']  # List with liquid amounts for each pump
+    storage = [800,800,800,800]  # List with liquid amounts for each pump
 
     while True:
         # Wait for a face to be recognized
