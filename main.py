@@ -44,12 +44,12 @@ def main():
             continue
         print(available_drinks)
 
-        x = "hi"
-        drink_list_str = " ".join(available_drinks)
-        drink_list_str = "Howdy! Welcome to the bar bot! Available drinks are  " 
-        l_list = [item.lower() for item in available_drinks]
-        my_list = [f'"{item}"' for item in l_list]
-        f_list = ", ".join(f'"{item}"' for item in l_list)
+        # x = "hi"
+        # drink_list_str = " ".join(available_drinks)
+        # drink_list_str = "Howdy! Welcome to the bar bot! Available drinks are  " 
+        # l_list = [item.lower() for item in available_drinks]
+        # my_list = [f'"{item}"' for item in l_list]
+        # f_list = ", ".join(f'"{item}"' for item in l_list)
         
 
         # Announce available drinks
