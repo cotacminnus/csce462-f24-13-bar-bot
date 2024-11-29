@@ -1,4 +1,3 @@
-
 from tts import Text2Speech
 from speech_recog import Speech2Text
 from poll_fr import FacialRecognition
@@ -25,7 +24,6 @@ def main():
     facial = FacialRecognition()
 
     tts1.init()
-    #tts.init()
     stt.init("/home/asCSCE462/Desktop/csce462-f24-13-bar-bot/model/vosk-model-small-en-us-0.15")
 
     # Load recipes and storage data
@@ -104,5 +102,3 @@ def main():
         
 if __name__ == "__main__":
     main()
-
-
