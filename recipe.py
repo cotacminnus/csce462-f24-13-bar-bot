@@ -20,6 +20,15 @@ def load_recipes():
             recipes[drink.lower()] = [float(amount) for amount in amounts]
     return recipes
 
+# Get available drinks based on storage levels
+def get_available_drinks(recipes):
+    storage_levels = pump_ctrl.read_storage()
+    available_drinks = []
+    for drink, amounts in recipes.items():
+        if all(storage_levels[i] >= amounts[i] for i in range(len(amounts))):
+            available_drinks.append(drink)
+    return available_drinks
+
 # Make a drink using specific amounts for each pump
 def make_drink(pump1_amt=0, pump2_amt=0, pump3_amt=0, pump4_amt=0):
     pump_ctrl.actuate_pump(1, pump1_amt)
