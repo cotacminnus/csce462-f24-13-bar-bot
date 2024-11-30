@@ -41,7 +41,10 @@ def main():
         drink_list_str = "Howdy! Welcome to the bar bot! Available drinks are " + ", ".join(available_drinks)
         print(drink_list_str)
         stt.mute()
-        tts.text_to_speech(drink_list_str)
+        try:
+            tts.text_to_speech(drink_list_str)
+        except Exception as e:
+            print(f"Error in text_to_speech: {e}")
         time.sleep(5 + len(available_drinks))  #delay relative to list length
         stt.unmute()
         
