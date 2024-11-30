@@ -10,7 +10,7 @@ import recipe
 def main():
     # Initialize Text-to-Speech, Speech-to-Text, and Facial Recognition
 
-    tts = Text2Speech()
+    tts = TextToSpeech()
     #tts1 = TextToSpeech()
     stt = Speech2Text()
     facial = FacialRecognition()
@@ -46,15 +46,12 @@ def main():
         
         # Greet the customer and list available drinks
         print("Face detected. Greeted the customer.")
-        # drink_list_str = "Howdy! Welcome to the bar bot! Available drinks are " + ", ".join(available_drinks)
-        # print(drink_list_str)
-        # tts.text_to_speech(drink_list_str)
-        tts.text_to_speech("Howdy! Welcome to the bar bot!")
-        drink_list = ", ".join(available_drinks)
-        tts.text_to_speech(f"Available drinks are: {drink_list}")
+        drink_list_str = "Howdy! Welcome to the bar bot! Available drinks are " + ", ".join(available_drinks)
+        print(drink_list_str)
+        tts.text_to_speech(drink_list_str)
+        
 
-        
-        
+
         # Listen for drink choice
         try:
             recognized_text = stt.listen_until_keyword(keywords=available_drinks)
