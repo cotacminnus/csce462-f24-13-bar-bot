@@ -37,21 +37,15 @@ def main():
 
         print(available_drinks)
 
-        # x = "hi"
-        # drink_list_str = " ".join(available_drinks)
-        # drink_list_str = "Howdy! Welcome to the bar bot! Available drinks are  " 
-        # l_list = [item.lower() for item in available_drinks]
-        # my_list = [f'"{item}"' for item in l_list]
-        # f_list = ", ".join(f'"{item}"' for item in l_list)
-        
         # Greet the customer and list available drinks
         print("Face detected. Greeted the customer.")
         drink_list_str = "Howdy! Welcome to the bar bot! Available drinks are " + ", ".join(available_drinks)
         print(drink_list_str)
+        stt.mute()
         tts.text_to_speech(drink_list_str)
+        time.sleep(3)
+        stt.unmute()
         
-
-
         # Listen for drink choice
         try:
             recognized_text = stt.listen_until_keyword(keywords=available_drinks)
