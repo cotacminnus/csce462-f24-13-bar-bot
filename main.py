@@ -14,7 +14,7 @@ def main():
     stt = Speech2Text()
     facial = FacialRecognition()
 
-    tts.init()
+    tts.init(tts)
     stt.init("/home/asCSCE462/Desktop/csce462-f24-13-bar-bot/model/vosk-model-small-en-us-0.15")
 
     # Load recipes and storage data
