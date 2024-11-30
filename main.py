@@ -27,10 +27,6 @@ def main():
         while not facial.poll_webcam(interval=1, save_path="output/captured_image.jpg"):
             time.sleep(1)  # Wait 1 second between polling attempts
 
-        # Greet the customer and list available drinks
-        tts.text_to_speech("Howdy! Welcome to the bar bot! Available drinks are orange blue yellow water")
-        print("Face detected. Greeted the customer.")
-
         # Check available drinks
         available_drinks = recipe.get_available_drinks(recipes)
 
@@ -38,10 +34,6 @@ def main():
             tts.text_to_speech("I'm sorry, we're out of stock for all drinks.")
             continue
 
-
-        if not available_drinks:
-            tts.text_to_speech("I'm sorry, we're out of stock for all drinks.")
-            continue
         print(available_drinks)
 
         # x = "hi"
@@ -51,8 +43,8 @@ def main():
         # my_list = [f'"{item}"' for item in l_list]
         # f_list = ", ".join(f'"{item}"' for item in l_list)
         
-
-        # Announce available drinks
+        # Greet the customer and list available drinks
+        print("Face detected. Greeted the customer.")
         drink_list_str = "Howdy! Welcome to the bar bot! Available drinks are " + ", ".join(available_drinks)
         tts.text_to_speech(drink_list_str)
         
