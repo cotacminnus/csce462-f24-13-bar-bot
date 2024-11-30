@@ -43,7 +43,7 @@ def main():
         print(drink_list_str)
         stt.mute()
         tts.text_to_speech(drink_list_str)
-        time.sleep(4 + available_drinks.count())
+        time.sleep(4 + len(available_drinks.length))
         stt.unmute()
         
         # Listen for drink choice
