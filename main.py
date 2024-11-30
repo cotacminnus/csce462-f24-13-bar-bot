@@ -11,7 +11,6 @@ def main():
     # Initialize Text-to-Speech, Speech-to-Text, and Facial Recognition
 
     tts = TextToSpeech()
-    #tts1 = TextToSpeech()
     stt = Speech2Text()
     facial = FacialRecognition()
 
@@ -34,7 +33,7 @@ def main():
         if not available_drinks:
             tts.text_to_speech("I'm sorry, we're out of stock for all drinks.")
             continue
-
+        
         print(available_drinks)
 
         # Greet the customer and list available drinks
@@ -43,7 +42,7 @@ def main():
         print(drink_list_str)
         stt.mute()
         tts.text_to_speech(drink_list_str)
-        time.sleep(5 + len(available_drinks))
+        time.sleep(5 + len(available_drinks))  #delay relative to list length
         stt.unmute()
         
         # Listen for drink choice
@@ -55,6 +54,7 @@ def main():
             if drink_choice:
                 tts.text_to_speech(f"Great choice! Pouring {drink_choice} now.")
                 recipe.make_drink_from_list(drink_choice, recipes)
+                time.sleep(7)
                 tts.text_to_speech("Your drink is ready. Enjoy!")
             else:
                 tts.text_to_speech("I didn't catch that. Please choose a drink from the menu.")
