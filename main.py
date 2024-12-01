@@ -38,6 +38,7 @@ def main():
 
         # Greet the customer and list available drinks
         print("Face detected. Greeted the customer.")
+        tts.text_to_speech("howdy")
         drink_list_str = "Howdy! Welcome to the bar bot! Available drinks are " + ", ".join(available_drinks)
         print(drink_list_str)
         stt.mute()
