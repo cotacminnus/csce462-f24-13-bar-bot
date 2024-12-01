@@ -35,14 +35,11 @@ def main():
             continue
         
         print(available_drinks)
-        tts.text_to_speech("Howdy! Welcome to the bar bot! Available drinks are Blue, Orange, Yellow, Water, Margarita, Test")
 
         # Greet the customer and list available drinks
         print("Face detected. Greeted the customer.")
         drink_list_str = "Howdy! Welcome to the bar bot! Available drinks are " + ", ".join(available_drinks)
         print(drink_list_str)
-
-        tts.text_to_speech("Howdy! Welcome to the bar bot! Available drinks are Blue, Orange, Yellow, Water, Margarita, Test")
         stt.mute()
         try:
             tts.text_to_speech(drink_list_str)
@@ -71,6 +68,9 @@ def main():
         # Reset for the next customer
         print("Interaction complete. Resetting...")
         time.sleep(4)
+
+        tts.stop()
+        tts.run()
         
 if __name__ == "__main__":
     main()
