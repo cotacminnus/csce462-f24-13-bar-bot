@@ -67,9 +67,7 @@ class TextToSpeech:
             self.engine.say(sanitized_text)
             self.engine.runAndWait()
 
-    '''
 
-    '''
     def text_to_speech(self, text):
         try:
             if not isinstance(text, str) or not text.strip():
@@ -81,9 +79,7 @@ class TextToSpeech:
         except Exception as e:
             print(f"TTS Error: {e}")
 
-    '''
 
-    '''
 
     def text_to_speech(self, text):
         try:
