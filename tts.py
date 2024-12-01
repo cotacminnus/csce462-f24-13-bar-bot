@@ -1,5 +1,6 @@
 import pyttsx3
 import threading
+from collections import OrderedDict
 
 class TextToSpeech:
     def init(self):
@@ -7,6 +8,7 @@ class TextToSpeech:
         self.engine.setProperty("rate", 150)
         self.engine.setProperty("volume", 1.0)
         self.lock = threading.Lock()
+        self.cache = OrderedDict()
 
     def sanitize_text(self, text):
         # Remove unsupported characters
