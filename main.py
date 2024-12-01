@@ -35,10 +35,10 @@ def main():
             continue
         
         print(available_drinks)
+        tts.text_to_speech("Howdy! Welcome to the bar bot! Available drinks are Blue, Orange, Yellow, Water, Margarita, Test")
 
         # Greet the customer and list available drinks
         print("Face detected. Greeted the customer.")
-        tts.text_to_speech("howdy")
         drink_list_str = "Howdy! Welcome to the bar bot! Available drinks are " + ", ".join(available_drinks)
         print(drink_list_str)
 
