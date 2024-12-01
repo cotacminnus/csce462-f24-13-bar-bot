@@ -38,7 +38,6 @@ def main():
         print(available_drinks)
 
         # Greet the customer and list available drinks
-        tts.clear()
         
         print("Face detected. Greeted the customer.")
         drink_list_str = "Howdy! Welcome to the bar bot! Available drinks are " + ", ".join(available_drinks)
