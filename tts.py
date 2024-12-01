@@ -32,13 +32,15 @@ class TextToSpeech:
             thread = threading.Thread(target=self._speak, args=(text,))
             thread.start()
             thread.join()
-
+            self.cache.clear()
 
         except Exception as e:
             print(f"TTS Error: {e}")
 
 
-    
+    def clear(self):
+        with self.lock:
+            self.cache.clear()
     
     def stop(self):
         with self.lock:
