@@ -32,7 +32,7 @@ def main():
             time.sleep(1)  # Wait 1 second between polling attempts
 
         # Check available drinks
-        tts.stop()
+       # tts.stop()
         available_drinks = recipe.get_available_drinks(recipes)
 
         if not available_drinks:
