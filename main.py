@@ -1,4 +1,4 @@
-from tts import Text2Speech, TextToSpeech
+#from tts import Text2Speech, TextToSpeech
 from tts_v import TextTSpeech
 from speech_recog import Speech2Text
 from poll_fr import FacialRecognition
