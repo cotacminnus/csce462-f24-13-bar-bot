@@ -41,6 +41,8 @@ def main():
         tts.text_to_speech("howdy")
         drink_list_str = "Howdy! Welcome to the bar bot! Available drinks are " + ", ".join(available_drinks)
         print(drink_list_str)
+
+        tts.text_to_speech("Howdy! Welcome to the bar bot! Available drinks are Blue, Orange, Yellow, Water, Margarita, Test")
         stt.mute()
         try:
             tts.text_to_speech(drink_list_str)
