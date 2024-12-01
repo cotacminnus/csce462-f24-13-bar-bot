@@ -68,6 +68,8 @@ class TextToSpeech:
             self.engine.runAndWait()
 
     '''
+
+'''
     def text_to_speech(self, text):
         try:
             if not isinstance(text, str) or not text.strip():
@@ -78,6 +80,8 @@ class TextToSpeech:
             thread.join()
         except Exception as e:
             print(f"TTS Error: {e}")
+
+'''
 
     '''
 
