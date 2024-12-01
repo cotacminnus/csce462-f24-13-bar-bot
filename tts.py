@@ -31,7 +31,7 @@ class TextToSpeech:
             thread.start()
             thread.join()
 
-            self.cache.clear()
+
         except Exception as e:
             print(f"TTS Error: {e}")
 
