@@ -5,7 +5,7 @@ import threading
 from queue import Queue
 
 class TextToSpeech:
-    def __init__(self):
+    def init(self):
         self.engine = pyttsx3.init()
         self.engine.setProperty("rate", 150)
         self.engine.setProperty("volume", 1.0)
