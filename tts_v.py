@@ -1,6 +1,7 @@
 from gtts import gTTS
 import os
 import threading
+from pydub import AudioSegment
 
 class TextTSpeech:
     def __init__(self):
@@ -21,6 +22,12 @@ class TextTSpeech:
                 tts = gTTS(sanitized_text)
                 file_path = "output.mp3"
                 tts.save(file_path)
+
+                #resample
+                audio = AudioSegment.from_file("output.mp3")
+                resampled_audio = audio.set_frame_rate(16000)
+                resampled_audio.export("file_path", format="mp3")
+
                 os.system(f"mpg321 {file_path}")  # Play the audio file
                 os.remove(file_path)  # Clean up the audio file after playing
             except Exception as e:
