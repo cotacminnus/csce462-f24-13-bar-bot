@@ -52,7 +52,7 @@ def main():
             tts.text_to_speech(drink_list_str)
         except Exception as e:
             print(f"Error in text_to_speech: {e}")
-        time.sleep(2 + len(available_drinks))  #delay relative to list length
+        time.sleep(1)
         #stt.unmute()
         
         # Listen for drink choice
