@@ -5,8 +5,8 @@ from collections import OrderedDict
 class TextToSpeech:
     def __init__(self):
         self.engine = pyttsx3.init()
-        self.engine.setProperty("rate", 150)
-        self.engine.setProperty("volume", 1.0)
+        self.engine.setProperty("rate", 100)
+        self.engine.setProperty("volume", 0.8)
         self.lock = threading.Lock()
         self.cache = OrderedDict()
 
@@ -46,9 +46,6 @@ class TextToSpeech:
     def stop(self):
         with self.lock:
             self.engine.stop()
-
-
-
 
 
 class Text2Speech:
