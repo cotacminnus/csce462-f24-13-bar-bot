@@ -64,7 +64,7 @@ def main():
             if drink_choice:
                 tts.text_to_speech(f"Great choice! Pouring {drink_choice} now.")
                 recipe.make_drink_from_list(drink_choice, recipes)
-                time.sleep(7)
+                time.sleep(4)
                 tts.text_to_speech("Your drink is ready. Enjoy!")
             else:
                 tts.text_to_speech("I didn't catch that. Please choose a drink from the menu.")
