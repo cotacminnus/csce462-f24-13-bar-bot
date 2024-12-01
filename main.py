@@ -7,6 +7,8 @@ import time
 import csv
 import json
 import recipe
+import logging
+logging.basicConfig(level=logging.WARNING)
 
 def main():
     # Initialize Text-to-Speech, Speech-to-Text, and Facial Recognition
