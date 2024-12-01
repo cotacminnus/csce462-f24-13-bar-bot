@@ -71,8 +71,6 @@ def main():
         print("Interaction complete. Resetting...")
         time.sleep(4)
 
-        tts.stop()
-        tts.run()
         
 if __name__ == "__main__":
     main()
