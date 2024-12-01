@@ -2,7 +2,7 @@ from gtts import gTTS
 import os
 import threading
 
-class TextToSpeech:
+class TextTSpeech:
     def __init__(self):
         self.lock = threading.Lock()
 
