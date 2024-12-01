@@ -21,6 +21,7 @@ class TextToSpeech:
             return
         with self.lock:
             print(f"TTS Speaking: {sanitized_text}")  # Debugging output
+            self.engine.stop()
             self.engine.say(sanitized_text)
             self.engine.runAndWait()
 
