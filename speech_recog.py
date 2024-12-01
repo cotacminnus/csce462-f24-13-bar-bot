@@ -11,6 +11,7 @@ class Speech2Text:
         self.sample_rate = 16000  # Default
         self.recognizer = None
         self.audio_queue = None
+        self.muted = False
         
     def audio_callback(self, indata, frames, time, status):
         if status:
@@ -24,13 +25,13 @@ class Speech2Text:
         self.audio_queue = queue.Queue()
         self.recognizer = KaldiRecognizer(self.model, self.sample_rate)
         
-    def mute(self):
-        """Mute the STT system."""
-        self.muted = True
+    #def mute(self):
+        #"""Mute the STT system."""
+        #self.muted = True
         
-    def unmute(self):
-        """Unmute the STT system."""
-        self.muted = False
+    #def unmute(self):
+        #"""Unmute the STT system."""
+        #self.muted = False
     
     def listen_until_keyword(self, keywords):
         """
