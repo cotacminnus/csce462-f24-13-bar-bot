@@ -32,7 +32,6 @@ def main():
             time.sleep(1)  # Wait 1 second between polling attempts
 
         # Check available drinks
-       # tts.stop()
         available_drinks = recipe.get_available_drinks(recipes)
 
         if not available_drinks:
@@ -47,13 +46,13 @@ def main():
         drink_list_str = "Howdy! Welcome to the bar bot! Available drinks are " + ", ".join(available_drinks)
         print(drink_list_str)
         
-        #stt.mute()
+
         try:
             tts.text_to_speech(drink_list_str)
         except Exception as e:
             print(f"Error in text_to_speech: {e}")
         time.sleep(1)
-        #stt.unmute()
+
         
         # Listen for drink choice
         try:
